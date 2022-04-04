@@ -24,7 +24,7 @@ SOFTWARE.
   </parent>
   <groupId>io.surati.gap</groupId>
   <artifactId>gtp-base</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.1.0</version>
   <description>It is the base payment for General Treasury.</description>
   <url>https://github.com/gap-enterprise/gtp-base</url>
   <inceptionYear>2022</inceptionYear>
