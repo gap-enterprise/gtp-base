@@ -1,0 +1,133 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<!--
+Copyright (c) 2022 Surati
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to read
+the Software only. Permissions is hereby NOT GRANTED to use, copy, modify,
+merge, publish, distribute, sublicense, and/or sell copies of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+  <changeSet author="baudoliver7" id="001" context="base">
+    <sql>
+      CREATE TABLE gtp_bundle (
+        code character varying(10) PRIMARY KEY,
+        notes character varying(250)
+      );
+
+      CREATE TABLE gtp_section (
+        code character varying(10) PRIMARY KEY,
+        name character varying(200) NOT NULL,
+        notes character varying(250)
+      );
+
+      CREATE TABLE gtp_title (
+        code character varying(10) PRIMARY KEY,
+        name character varying(200) NOT NULL,
+        notes character varying(250)
+      );
+
+      CREATE TABLE gtp_chapter (
+        code character varying(10) PRIMARY KEY,
+        name character varying(200) NOT NULL,
+        notes character varying(250)
+      );
+
+      CREATE TABLE gtp_sub_chapter (
+        code character varying(10) PRIMARY KEY,
+        name character varying(200) NOT NULL,
+        notes character varying(250)
+      );
+
+      CREATE TABLE gtp_line (
+        code character varying(10) PRIMARY KEY,
+        name character varying(200) NOT NULL,
+        notes character varying(250)
+      );
+
+      CREATE TABLE gtp_account_pec (
+        code character varying(10) PRIMARY KEY,
+        name character varying(200) NOT NULL,
+        notes character varying(250)
+      );
+
+      CREATE TABLE gtp_warrant (
+        id BIGINT PRIMARY KEY,
+        debit_account_pec character varying(25),
+        credit_account_pec character varying(25),
+        date_pec date,
+        title character varying(10) NOT NULL,
+        section character varying(10) NOT NULL,
+        chapter character varying(10) NOT NULL,
+        sub_chapter character varying(10) NOT NULL,
+        line character varying(10) NOT NULL,
+        bundle character varying(10) NOT NULL,
+        imputation character varying(50) NOT NULL,
+        CONSTRAINT gtp_warrant_id_fkey FOREIGN KEY (id) REFERENCES pay_reference_document (id)
+          ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT gtp_warrant_debit_account_pec_fkey FOREIGN KEY (debit_account_pec) REFERENCES gtp_account_pec (code)
+          ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT gtp_warrant_credit_account_pec_fkey FOREIGN KEY (credit_account_pec) REFERENCES gtp_account_pec (code)
+          ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT gtp_warrant_title_fkey FOREIGN KEY (title) REFERENCES gtp_title (code)
+          ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT gtp_warrant_section_fkey FOREIGN KEY (section) REFERENCES gtp_section (code)
+          ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT gtp_warrant_chapter_fkey FOREIGN KEY (chapter) REFERENCES gtp_chapter (code)
+          ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT gtp_warrant_sub_chapter_fkey FOREIGN KEY (sub_chapter) REFERENCES gtp_sub_chapter (code)
+          ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT gtp_warrant_sub_line_fkey FOREIGN KEY (line) REFERENCES gtp_line (code)
+          ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT gtp_warrant_bundle_fkey FOREIGN KEY (bundle) REFERENCES gtp_bundle (code)
+          ON UPDATE CASCADE ON DELETE CASCADE
+      );
+
+      CREATE VIEW gtp_warrant_view AS
+          SELECT rd.id,
+              rd.type_id,
+              rd.date,
+              rd.reference,
+              rd.object,
+              rd.place,
+              rd.amount,
+              rd.deposit_date,
+              rd.entry_date,
+              rd.issuer_id,
+              rd.other_reference,
+              rd.status_id,
+              rd.step_id,
+              rd.amount_paid,
+              rd.amount_left,
+              rd.advanced_amount,
+              rd.author_id,
+              rd.worker_id,
+              ps.name AS name_issuer,
+              tp.abbreviated AS abbreviated_issuer,
+              tp.code AS code_issuer,
+              wr.debit_account_pec,
+              wr.credit_account_pec,
+              wr.date_pec,
+              wr.title,
+              wr.section,
+              wr.chapter,
+              wr.sub_chapter,
+              wr.line,
+              wr.bundle,
+              wr.imputation
+          FROM pay_reference_document rd
+          LEFT JOIN gtp_warrant wr ON wr.id = rd.id
+          LEFT JOIN pay_third_party tp ON tp.id = rd.issuer_id
+          LEFT JOIN ad_person ps ON ps.id = rd.issuer_id
+          WHERE rd.type_id='WARRANT';
+    </sql>
+  </changeSet>
+</databaseChangeLog>
