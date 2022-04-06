@@ -61,6 +61,8 @@ SOFTWARE.
 
       CREATE TABLE gtp_warrant (
         id BIGINT PRIMARY KEY,
+        gross double precision NOT NULL,
+        deduction double precision NOT NULL,
         debit_account_pec character varying(25),
         credit_account_pec character varying(25),
         date_pec date,
@@ -113,6 +115,8 @@ SOFTWARE.
           ps.name AS name_issuer,
           tp.abbreviated AS abbreviated_issuer,
           tp.code AS code_issuer,
+          wr.gross,
+          wr.deduction,
           wr.debit_account_pec,
           wr.credit_account_pec,
           wr.date_pec,

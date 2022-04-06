@@ -20,20 +20,20 @@ import com.baudoliver7.jdbc.toolset.wrapper.DataSourceWrap;
 import javax.sql.DataSource;
 
 /**
- * Database with demo data.
+ * Database with prod data.
  *
  * @since 0.1
  */
-public final class MaDemoDatabase extends DataSourceWrap {
+public final class GtpProdDatabase extends DataSourceWrap {
 
     /**
      * Ctor.
      * @param src Data source
      */
-    public MaDemoDatabase(final DataSource src) {
+    public GtpProdDatabase(final DataSource src) {
         super(
             new GtpDatabaseBuiltWithLiquibase(
-                src, "base,demo"
+                src, "base,prod"
             )
         );
     }
