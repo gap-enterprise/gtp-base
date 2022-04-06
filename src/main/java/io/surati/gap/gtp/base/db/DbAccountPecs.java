@@ -32,11 +32,6 @@ import io.surati.gap.gtp.base.api.AccountPecs;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpAccountPec;
 
 public final class DbAccountPecs implements AccountPecs {
-
-	/**
-	 * Table of account pec.
-	 */
-	private static final GtpAccountPec GTP_ACCOUNT_PEC = GtpAccountPec.GTP_ACCOUNT_PEC;
 	
 	/**
 	 * jOOQ database context.
@@ -59,7 +54,7 @@ public final class DbAccountPecs implements AccountPecs {
 	
 	@Override
 	public AccountPec get(final String code) {
-		if(this.ctx.fetchCount(GTP_ACCOUNT_PEC, GTP_ACCOUNT_PEC.CODE.eq(code)) == 0) {
+		if(this.ctx.fetchCount(GtpAccountPec.GTP_ACCOUNT_PEC, GtpAccountPec.GTP_ACCOUNT_PEC.CODE.eq(code)) == 0) {
 			throw new IllegalArgumentException(
 				String.format("Chapter with code %s not found !", code)
 			);
@@ -73,7 +68,7 @@ public final class DbAccountPecs implements AccountPecs {
 	@Override
 	public Iterable<AccountPec> iterate() {
 		return this.ctx
-			.selectFrom(GTP_ACCOUNT_PEC)
+			.selectFrom(GtpAccountPec.GTP_ACCOUNT_PEC)
 			.fetch(
 				rec -> new DbAccountPec(
 					this.source, rec.getCode()
@@ -85,8 +80,8 @@ public final class DbAccountPecs implements AccountPecs {
 	public boolean has(final String code) {
 		return this.ctx
 			.fetchCount(
-				GTP_ACCOUNT_PEC,
-				GTP_ACCOUNT_PEC.CODE.eq(code)
+				GtpAccountPec.GTP_ACCOUNT_PEC,
+				GtpAccountPec.GTP_ACCOUNT_PEC.CODE.eq(code)
 			) > 0;
 	}
 	
@@ -98,19 +93,17 @@ public final class DbAccountPecs implements AccountPecs {
 			throw new IllegalArgumentException("Le nom ne peut être vide !");
 		if(this.has(code))
 			throw new IllegalArgumentException("Ce code est déjà utilisé !");
-		this.ctx.insertInto(GTP_ACCOUNT_PEC)
-			.set(GTP_ACCOUNT_PEC.CODE, code)
-			.set(GTP_ACCOUNT_PEC.NAME, name)
-			.set(GTP_ACCOUNT_PEC.NOTES, notes)
+		this.ctx.insertInto(GtpAccountPec.GTP_ACCOUNT_PEC)
+			.set(GtpAccountPec.GTP_ACCOUNT_PEC.CODE, code)
+			.set(GtpAccountPec.GTP_ACCOUNT_PEC.NAME, name)
+			.set(GtpAccountPec.GTP_ACCOUNT_PEC.NOTES, notes)
 			.execute();
 	}
 	
 	@Override
 	public void remove(final String code) {
-		if(StringUtils.isBlank(code)) 
-			throw new IllegalArgumentException("Le code ne peut être vide !");
-		this.ctx.delete(GTP_ACCOUNT_PEC)
-			.where(GTP_ACCOUNT_PEC.CODE.eq(code))
+		this.ctx.delete(GtpAccountPec.GTP_ACCOUNT_PEC)
+			.where(GtpAccountPec.GTP_ACCOUNT_PEC.CODE.eq(code))
 			.execute();
 	}
 }

@@ -32,10 +32,6 @@ import io.surati.gap.gtp.base.db.jooq.generated.tables.records.GtpAccountPecReco
 public final class DbAccountPec implements AccountPec {
 
 	/**
-	 * Table of account pec.
-	 */
-	private static final GtpAccountPec GTP_ACCOUNT_PEC = GtpAccountPec.GTP_ACCOUNT_PEC;
-	/**
 	 * Record.
 	 */
 	private final GtpAccountPecRecord record;
@@ -52,7 +48,7 @@ public final class DbAccountPec implements AccountPec {
 	 */
 	public DbAccountPec(final DataSource source, final String code) {		
 		this.ctx = new JooqContext(source);
-		this.record = this.ctx.fetchOne(GTP_ACCOUNT_PEC, GTP_ACCOUNT_PEC.CODE.eq(code));
+		this.record = this.ctx.fetchOne(GtpAccountPec.GTP_ACCOUNT_PEC, GtpAccountPec.GTP_ACCOUNT_PEC.CODE.eq(code));
 	}
 	
 	 @Override
@@ -76,25 +72,9 @@ public final class DbAccountPec implements AccountPec {
      }
 	 
 	 @Override
-	 public void update(String code, String name, String notes) {
-		 if(this.codeIsUsed(code))
-				throw new IllegalArgumentException("Ce code est déjà utilisé.");
-		 this.record.setCode(code);
+	 public void update(String name, String notes) {
 		 this.record.setName(name);
 		 this.record.setNotes(notes);
 		 this.record.store();
 	 }
-	 
-	 /**
-	   * Checks if code is used.
-	   * @param code Code
-	   * @return Used or not
-	 */
-	 private boolean codeIsUsed(String code) {
-		 return this.ctx
-					.fetchCount(
-						GTP_ACCOUNT_PEC,
-						GTP_ACCOUNT_PEC.CODE.eq(code)
-					) > 0;
-     }
 }
