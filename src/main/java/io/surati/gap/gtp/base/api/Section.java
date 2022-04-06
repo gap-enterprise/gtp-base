@@ -35,11 +35,10 @@ public interface Section {
     
     /**
      * Update.
-     * @param code Code
      * @param name Name
      * @param notes Notes
      */
-    void update(String code, String name, String notes);
+    void update(String name, String notes);
 
     Section EMPTY = new Section() {
 
@@ -64,7 +63,7 @@ public interface Section {
         }
 
         @Override
-        public void update(String code, String name, String notes) {
+        public void update(final String name, final String notes) {
 
         }
     };
