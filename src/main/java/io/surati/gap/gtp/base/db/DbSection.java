@@ -35,29 +35,6 @@ public final class DbSection implements Section {
         this.code = code;
     }
 
-    /**
-     * Checks if code is used.
-     * @param code Code
-     * @return Used or not
-     */
-    private boolean codeIsUsed(String code) {
-        try {
-            return !this.code.equals(code) &&
-                new JdbcSession(this.src)
-                    .sql(
-                        new Joined(
-                            " ",
-                            "SELECT count(*) FROM gtp_section",
-                            "WHERE code=?"
-                        ).toString()
-                    )
-                    .set(code)
-                    .select(new SingleOutcome<>(Long.class)) > 0;
-        } catch (SQLException ex) {
-            throw new DatabaseException(ex);
-        }
-    }
-
     @Override
     public String code() {
         return this.code;
@@ -100,9 +77,7 @@ public final class DbSection implements Section {
     }
 
     @Override
-    public void update(final String code, final String name, final String notes) {
-    	if(this.codeIsUsed(code))
-			  throw new IllegalArgumentException("Ce code est déjà utilisé.");
+    public void update(final String name, final String notes) {
         try {
             new JdbcSession(this.src)
                 .sql(

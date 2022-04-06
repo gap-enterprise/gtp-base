@@ -21,10 +21,9 @@ public interface Bundle {
 
     /**
      * Update.
-     * @param code Code
      * @param notes Notes
      */
-    void update(String code, String notes);
+    void update(String notes);
 
     Bundle EMPTY = new Bundle() {
 
@@ -39,7 +38,7 @@ public interface Bundle {
         }
 
         @Override
-        public void update(String code, String notes) {
+        public void update(final String notes) {
 
         }
     };
