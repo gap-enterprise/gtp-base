@@ -51,11 +51,10 @@ public interface Chapter {
 
     /**
      * Update.
-     * @param code Code
      * @param name Name
      * @param notes Notes
      */
-    void update(String code, String name, String notes);
+    void update(String name, String notes);
 
     Chapter EMPTY = new Chapter() {
 
@@ -80,7 +79,7 @@ public interface Chapter {
         }
 
         @Override
-        public void update(String code, String name, String notes) {
+        public void update(String name, String notes) {
 
         }
     };

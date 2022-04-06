@@ -30,11 +30,6 @@ import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpChapter;
  * @since 0.2
  */
 public final class DbChapters implements Chapters {
-
-	/**
-	 * Table of chapter.
-	 */
-	private static final GtpChapter GTP_CHAPTER = GtpChapter.GTP_CHAPTER;
 	
 	/**
 	 * jOOQ database context.
@@ -57,7 +52,7 @@ public final class DbChapters implements Chapters {
 	
 	@Override
 	public Chapter get(final String code) {
-		if(this.ctx.fetchCount(GTP_CHAPTER, GTP_CHAPTER.CODE.eq(code)) == 0) {
+		if(this.ctx.fetchCount(GtpChapter.GTP_CHAPTER, GtpChapter.GTP_CHAPTER.CODE.eq(code)) == 0) {
 			throw new IllegalArgumentException(
 				String.format("Chapter with code %s not found !", code)
 			);
@@ -71,7 +66,7 @@ public final class DbChapters implements Chapters {
 	@Override
 	public Iterable<Chapter> iterate() {
 		return this.ctx
-			.selectFrom(GTP_CHAPTER)
+			.selectFrom(GtpChapter.GTP_CHAPTER)
 			.fetch(
 				rec -> new DbChapter(
 					this.source, rec.getCode()
@@ -83,8 +78,8 @@ public final class DbChapters implements Chapters {
 	public boolean has(final String code) {
 		return this.ctx
 			.fetchCount(
-				GTP_CHAPTER,
-				GTP_CHAPTER.CODE.eq(code)
+				GtpChapter.GTP_CHAPTER,
+				GtpChapter.GTP_CHAPTER.CODE.eq(code)
 			) > 0;
 	}
 	
@@ -96,19 +91,17 @@ public final class DbChapters implements Chapters {
 			throw new IllegalArgumentException("Le nom ne peut être vide !");
 		if(this.has(code))
 			throw new IllegalArgumentException("Ce code est déjà utilisé !");
-		this.ctx.insertInto(GTP_CHAPTER)
-			.set(GTP_CHAPTER.CODE, code)
-			.set(GTP_CHAPTER.NAME, name)
-			.set(GTP_CHAPTER.NOTES, notes)
+		this.ctx.insertInto(GtpChapter.GTP_CHAPTER)
+			.set(GtpChapter.GTP_CHAPTER.CODE, code)
+			.set(GtpChapter.GTP_CHAPTER.NAME, name)
+			.set(GtpChapter.GTP_CHAPTER.NOTES, notes)
 			.execute();
 	}
 	
 	@Override
 	public void remove(final String code) {
-		if(StringUtils.isBlank(code)) 
-			throw new IllegalArgumentException("Le code ne peut être vide !");
-		this.ctx.delete(GTP_CHAPTER)
-			.where(GTP_CHAPTER.CODE.eq(code))
+		this.ctx.delete(GtpChapter.GTP_CHAPTER)
+			.where(GtpChapter.GTP_CHAPTER.CODE.eq(code))
 			.execute();
 	}
 }
