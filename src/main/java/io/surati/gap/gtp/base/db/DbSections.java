@@ -1,143 +1,113 @@
+/*
+ * Copyright (c) 2022 Surati
+
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to read
+ * the Software only. Permissions is hereby NOT GRANTED to use, copy, modify,
+ * merge, publish, distribute, sublicense, and/or sell copies of the Software.
+
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package io.surati.gap.gtp.base.db;
 
-import com.jcabi.jdbc.JdbcSession;
-import com.jcabi.jdbc.ListOutcome;
-import com.jcabi.jdbc.Outcome;
-import com.jcabi.jdbc.SingleOutcome;
-import io.surati.gap.database.utils.exceptions.DatabaseException;
+import io.surati.gap.database.utils.jooq.JooqContext;
 import io.surati.gap.gtp.base.api.Section;
 import io.surati.gap.gtp.base.api.Sections;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpSection;
+
 import javax.sql.DataSource;
 import org.apache.commons.lang.StringUtils;
-import org.cactoos.text.Joined;
+import org.jooq.DSLContext;
 
 /**
  * Sections from database.
  *
- * @since 0.5
+ * @since 0.2
  */
 public final class DbSections implements Sections {
-
-    /**
-     * Data source.
-     */
-    private final DataSource src;
-    
-    /**
-     * Ctor.
-     * @param src Data source
-     */
-    public DbSections(final DataSource src) {
-        this.src = src;
-    }
+	
+	/**
+	 * jOOQ database context.
+	 */
+	private final DSLContext ctx;
+	
+	/**
+	 * DataSource source.
+	 */
+	private final DataSource source;
+	
+	/**
+	 * Ctor.
+	 * @param source
+	 */
+	public DbSections(final DataSource source) {
+		this.source = source;
+		this.ctx = new JooqContext(this.source);
+	}
     
 	@Override
 	public boolean has(final String code) {
-		try {
-			return new JdbcSession(this.src)
-				.sql("SELECT COUNT(*) FROM gtp_section WHERE code=?")
-				.set(code)
-				.select(new SingleOutcome<>(Long.class)) > 0;
-		} catch(SQLException ex) {
-			throw new DatabaseException(ex);
-		}
+		return this.ctx
+				.fetchCount(
+					GtpSection.GTP_SECTION,
+					GtpSection.GTP_SECTION.CODE.eq(code)
+				) > 0;
 	}
 
     @Override
     public Section get(final String code) {
-        try(
-            final Connection connection = this.src.getConnection();
-            final PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM gtp_section WHERE code=?");
-        ){
-            pstmt.setString(1, code);
-            try(final ResultSet rs = pstmt.executeQuery()){
-                if(rs.next()) {
-                    return new DbSection(this.src, code);
-                } else {
-                    throw new IllegalArgumentException("La section recherchée est introuvable !");
-                }
-            }
-        } catch(SQLException e) {
-            throw new DatabaseException(e);
-        }
+    	if(
+			this.ctx.fetchCount(
+				GtpSection.GTP_SECTION, GtpSection.GTP_SECTION.CODE.eq(code)
+			) == 0
+    		) {
+    			throw new IllegalArgumentException(
+    				String.format("Section with code %s not found !", code)
+    			);
+    		}
+    		return new DbSection(
+    			this.source,
+    			code
+    		);
     }
 
     @Override
     public Iterable<Section> iterate() {
-        try {
-            return
-                new JdbcSession(this.src)
-                    .sql(
-                        new Joined(
-                            " ",
-                            "SELECT code FROM gtp_section",
-                            "ORDER BY code ASC"
-                        ).toString()
-                    )
-                    .select(
-                        new ListOutcome<>(
-                            rset ->
-                                new DbSection(
-                                    this.src,
-                                    rset.getString(1)
-                                )
-                        )
-                    );
-        } catch (SQLException ex) {
-            throw new DatabaseException(ex);
-        }
+    	return this.ctx
+    			.selectFrom(GtpSection.GTP_SECTION)
+    			.orderBy(GtpSection.GTP_SECTION.CODE.asc())
+    			.fetch(
+    				rec -> new DbSection(
+    					this.source, rec.getCode()
+    				)
+    			);
     }
 
     @Override
     public void add(final String code, final String name, final String notes) {
-        if(StringUtils.isBlank(code)) {
-            throw new IllegalArgumentException("Vous devez fournir un code !");
-        }
-        if(StringUtils.isBlank(name)) {
-            throw new IllegalArgumentException("Vous devez renseigner le libellé !");
-        }
-        if(this.has(code)) {
+    	if(StringUtils.isBlank(code)) 
+			throw new IllegalArgumentException("Le code ne peut être vide !");
+		if(StringUtils.isBlank(name))
+			throw new IllegalArgumentException("Le nom ne peut être vide !");
+		if(this.has(code))
 			throw new IllegalArgumentException("Le code est déjà utilisé !");
-        }
-        try {
-            new JdbcSession(this.src)
-                .sql(
-                    new Joined(
-                        " ",
-                        "INSERT INTO gtp_section",
-                        "(code, name, notes)",
-                        "VALUES",
-                        "(?, ?, ?)"
-                    ).toString()
-                )
-                .set(code.trim())
-                .set(name.trim())
-                .set(notes)
-                .insert(Outcome.VOID);
-        } catch (SQLException ex) {
-            throw new DatabaseException(ex);
-        }
+		this.ctx.insertInto(GtpSection.GTP_SECTION)
+			.set(GtpSection.GTP_SECTION.CODE, code)
+			.set(GtpSection.GTP_SECTION.NAME, name)
+			.set(GtpSection.GTP_SECTION.NOTES, notes)
+			.execute();
     }
 
     @Override
     public void remove(final String code) {
-        try {
-            new JdbcSession(this.src)
-                .sql(
-                    new Joined(
-                        " ",
-                        "DELETE FROM gtp_section",
-                        "WHERE code=?"
-                    ).toString()
-                )
-                .set(code)
-                .execute();
-        } catch (SQLException ex) {
-            throw new DatabaseException(ex);
-        }
+    	this.ctx.delete(GtpSection.GTP_SECTION)
+		.where(GtpSection.GTP_SECTION.CODE.eq(code))
+		.execute();
     }
 }
