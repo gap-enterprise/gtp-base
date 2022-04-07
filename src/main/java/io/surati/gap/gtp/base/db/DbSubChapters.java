@@ -60,7 +60,7 @@ public final class DbSubChapters implements Chapters {
 			) == 0
 		) {
 			throw new IllegalArgumentException(
-				String.format("Chapter with code %s not found !", code)
+				String.format("Sub-chapter with code %s not found !", code)
 			);
 		}
 		return new DbSubChapter(
