@@ -64,7 +64,7 @@ public final class DbBundles implements Bundles {
     public Bundle get(final String code) {
     	if(!this.has(code)) {
 			throw new IllegalArgumentException(
-				String.format("Bundle with code %s not found !", code)
+				String.format("La Liasse avec le code %s est introuvable !", code)
 			);
 		}
 		return new DbBundle(

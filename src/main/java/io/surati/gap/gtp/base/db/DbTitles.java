@@ -64,7 +64,7 @@ public final class DbTitles implements Titles {
     public Title get(final String code) {
     	if(!this.has(code)) {
 			throw new IllegalArgumentException(
-				String.format("Title with code %s not found !", code)
+				String.format("Le Titre avec le code %s est introuvable !", code)
 			);
 		}
 		return new DbTitle(

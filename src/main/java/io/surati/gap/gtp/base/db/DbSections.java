@@ -64,7 +64,7 @@ public final class DbSections implements Sections {
     public Section get(final String code) {
     	if(!this.has(code)){
 			throw new IllegalArgumentException(
-				String.format("Section with code %s not found !", code)
+				String.format("La Section avec le code %s est introuvable !", code)
 			);
 		}
 		return new DbSection(
