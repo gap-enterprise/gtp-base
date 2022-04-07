@@ -52,7 +52,11 @@ public final class DbChapters implements Chapters {
 	
 	@Override
 	public Chapter get(final String code) {
-		if(this.ctx.fetchCount(GtpChapter.GTP_CHAPTER, GtpChapter.GTP_CHAPTER.CODE.eq(code)) == 0) {
+		if(
+			this.ctx.fetchCount(
+				GtpChapter.GTP_CHAPTER, GtpChapter.GTP_CHAPTER.CODE.eq(code)
+			) == 0
+		) {
 			throw new IllegalArgumentException(
 				String.format("Chapter with code %s not found !", code)
 			);

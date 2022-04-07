@@ -54,7 +54,11 @@ public final class DbAccountPecs implements AccountPecs {
 	
 	@Override
 	public AccountPec get(final String code) {
-		if(this.ctx.fetchCount(GtpAccountPec.GTP_ACCOUNT_PEC, GtpAccountPec.GTP_ACCOUNT_PEC.CODE.eq(code)) == 0) {
+		if(
+			this.ctx.fetchCount(
+				GtpAccountPec.GTP_ACCOUNT_PEC, GtpAccountPec.GTP_ACCOUNT_PEC.CODE.eq(code)
+			) == 0
+		) {
 			throw new IllegalArgumentException(
 				String.format("Chapter with code %s not found !", code)
 			);

@@ -44,11 +44,13 @@ public final class DbAccountPec implements AccountPec {
 	/**
 	 * Ctor.
 	 * @param source Data source
-	 * @param id Identifier
+	 * @param code Identifier
 	 */
 	public DbAccountPec(final DataSource source, final String code) {		
 		this.ctx = new JooqContext(source);
-		this.record = this.ctx.fetchOne(GtpAccountPec.GTP_ACCOUNT_PEC, GtpAccountPec.GTP_ACCOUNT_PEC.CODE.eq(code));
+		this.record = this.ctx.fetchOne(
+			GtpAccountPec.GTP_ACCOUNT_PEC, GtpAccountPec.GTP_ACCOUNT_PEC.CODE.eq(code)
+		);
 	}
 	
 	 @Override

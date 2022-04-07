@@ -43,11 +43,13 @@ public final class DbChapter implements Chapter {
 	/**
 	 * Ctor.
 	 * @param source Data source
-	 * @param id Identifier
+	 * @param code Identifier
 	 */
 	public DbChapter(final DataSource source, final String code) {		
 		this.ctx = new JooqContext(source);
-		this.record = this.ctx.fetchOne(GtpChapter.GTP_CHAPTER, GtpChapter.GTP_CHAPTER.CODE.eq(code));
+		this.record = this.ctx.fetchOne(
+			GtpChapter.GTP_CHAPTER, GtpChapter.GTP_CHAPTER.CODE.eq(code)
+		);
 	}
 	
 	 @Override
@@ -71,7 +73,7 @@ public final class DbChapter implements Chapter {
      }
 	 
 	 @Override
-	 public void update(String name, String notes) {
+	 public void update(final String name, final String notes) {
 		 this.record.setName(name);
 		 this.record.setNotes(notes);
 		 this.record.store();
