@@ -62,19 +62,15 @@ public final class DbBundles implements Bundles {
 
     @Override
     public Bundle get(final String code) {
-    	if(
-			this.ctx.fetchCount(
-				GtpBundle.GTP_BUNDLE, GtpBundle.GTP_BUNDLE.CODE.eq(code)
-			) == 0
-    	  ) {
-    			throw new IllegalArgumentException(
-    				String.format("Bundle with code %s not found !", code)
-    			);
-    		}
-    		return new DbBundle(
-    			this.source,
-    			code
-    		);
+    	if(!this.has(code)) {
+			throw new IllegalArgumentException(
+				String.format("Bundle with code %s not found !", code)
+			);
+		}
+		return new DbBundle(
+			this.source,
+			code
+		);
     }
 
     @Override
@@ -94,7 +90,7 @@ public final class DbBundles implements Bundles {
     	if(StringUtils.isBlank(code)) 
 			throw new IllegalArgumentException("Le code ne peut être vide !");		
 		if(this.has(code))
-			throw new IllegalArgumentException("Le code est déjà utilisé !");
+			throw new IllegalArgumentException(String.format("Le code %s est déjà utilisé !", code));
 		this.ctx.insertInto(GtpBundle.GTP_BUNDLE)
 			.set(GtpBundle.GTP_BUNDLE.CODE, code)
 			.set(GtpBundle.GTP_BUNDLE.NOTES, notes)

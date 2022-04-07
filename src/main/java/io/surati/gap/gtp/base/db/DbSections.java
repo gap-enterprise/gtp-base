@@ -62,19 +62,15 @@ public final class DbSections implements Sections {
 
     @Override
     public Section get(final String code) {
-    	if(
-			this.ctx.fetchCount(
-				GtpSection.GTP_SECTION, GtpSection.GTP_SECTION.CODE.eq(code)
-			) == 0
-    		) {
-    			throw new IllegalArgumentException(
-    				String.format("Section with code %s not found !", code)
-    			);
-    		}
-    		return new DbSection(
-    			this.source,
-    			code
-    		);
+    	if(!this.has(code)){
+			throw new IllegalArgumentException(
+				String.format("Section with code %s not found !", code)
+			);
+		}
+		return new DbSection(
+			this.source,
+			code
+		);
     }
 
     @Override
@@ -96,7 +92,7 @@ public final class DbSections implements Sections {
 		if(StringUtils.isBlank(name))
 			throw new IllegalArgumentException("Le nom ne peut être vide !");
 		if(this.has(code))
-			throw new IllegalArgumentException("Le code est déjà utilisé !");
+			throw new IllegalArgumentException(String.format("Le code %s est déjà utilisé !", code));
 		this.ctx.insertInto(GtpSection.GTP_SECTION)
 			.set(GtpSection.GTP_SECTION.CODE, code)
 			.set(GtpSection.GTP_SECTION.NAME, name)

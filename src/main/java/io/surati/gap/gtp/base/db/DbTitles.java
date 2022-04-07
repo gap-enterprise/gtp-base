@@ -62,19 +62,15 @@ public final class DbTitles implements Titles {
 
     @Override
     public Title get(final String code) {
-    	if(
-			this.ctx.fetchCount(
-				GtpTitle.GTP_TITLE, GtpTitle.GTP_TITLE.CODE.eq(code)
-			) == 0
-    	  ) {
-    			throw new IllegalArgumentException(
-    				String.format("Title with code %s not found !", code)
-    			);
-    		}
-    		return new DbTitle(
-    			this.source,
-    			code
-    		);
+    	if(!this.has(code)) {
+			throw new IllegalArgumentException(
+				String.format("Title with code %s not found !", code)
+			);
+		}
+		return new DbTitle(
+			this.source,
+			code
+		);
     }
 
     @Override
@@ -96,7 +92,7 @@ public final class DbTitles implements Titles {
 		if(StringUtils.isBlank(name))
 			throw new IllegalArgumentException("Le nom ne peut être vide !");
 		if(this.has(code))
-			throw new IllegalArgumentException("Le code est déjà utilisé !");
+			throw new IllegalArgumentException(String.format("Le code %s est déjà utilisé !", code));
 		this.ctx.insertInto(GtpTitle.GTP_TITLE)
 			.set(GtpTitle.GTP_TITLE.CODE, code)
 			.set(GtpTitle.GTP_TITLE.NAME, name)
