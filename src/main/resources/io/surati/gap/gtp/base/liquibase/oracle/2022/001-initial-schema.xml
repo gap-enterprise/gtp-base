@@ -47,6 +47,12 @@ SOFTWARE.
             notes character varying(250)
             );
 
+            CREATE TABLE gtp_region (
+            code character varying(10) PRIMARY KEY,
+            name character varying(200) NOT NULL,
+            notes character varying(250)
+            );
+
             CREATE TABLE gtp_line (
             code character varying(10) PRIMARY KEY,
             name character varying(200) NOT NULL,
