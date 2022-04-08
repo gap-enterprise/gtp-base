@@ -51,7 +51,7 @@ public interface Lines {
     void remove(String code);
 
     /**
-     * Checks if has section with code.
+     * Checks if has line with code.
      * @param code Code
      * @return Has or not
      */

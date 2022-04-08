@@ -63,7 +63,7 @@ public final class DbLines implements Lines {
     public Line get(final String code) {
     	if(!this.has(code)) {
 			throw new IllegalArgumentException(
-				String.format("La Line avec le code %s est introuvable !", code)
+				String.format("La Ligne avec le code %s est introuvable !", code)
 			);
 		}
 		return new DbLine(
