@@ -16,7 +16,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row11;
+import org.jooq.Row13;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -52,6 +52,16 @@ public class GtpWarrant extends TableImpl<GtpWarrantRecord> {
      * The column <code>public.gtp_warrant.id</code>.
      */
     public final TableField<GtpWarrantRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false), this, "");
+
+    /**
+     * The column <code>public.gtp_warrant.gross</code>.
+     */
+    public final TableField<GtpWarrantRecord, Double> GROSS = createField(DSL.name("gross"), SQLDataType.DOUBLE.nullable(false), this, "");
+
+    /**
+     * The column <code>public.gtp_warrant.deduction</code>.
+     */
+    public final TableField<GtpWarrantRecord, Double> DEDUCTION = createField(DSL.name("deduction"), SQLDataType.DOUBLE.nullable(false), this, "");
 
     /**
      * The column <code>public.gtp_warrant.debit_account_pec</code>.
@@ -248,11 +258,11 @@ public class GtpWarrant extends TableImpl<GtpWarrantRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row11 type methods
+    // Row13 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row11<Long, String, String, LocalDate, String, String, String, String, String, String, String> fieldsRow() {
-        return (Row11) super.fieldsRow();
+    public Row13<Long, Double, Double, String, String, LocalDate, String, String, String, String, String, String, String> fieldsRow() {
+        return (Row13) super.fieldsRow();
     }
 }

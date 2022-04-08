@@ -8,6 +8,7 @@ import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpAccountPec;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpBundle;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpChapter;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpLine;
+import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpRegion;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpSection;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpSubChapter;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpTitle;
@@ -56,6 +57,11 @@ public class Public extends SchemaImpl {
     public final GtpLine GTP_LINE = GtpLine.GTP_LINE;
 
     /**
+     * The table <code>public.gtp_region</code>.
+     */
+    public final GtpRegion GTP_REGION = GtpRegion.GTP_REGION;
+
+    /**
      * The table <code>public.gtp_section</code>.
      */
     public final GtpSection GTP_SECTION = GtpSection.GTP_SECTION;
@@ -100,6 +106,7 @@ public class Public extends SchemaImpl {
             GtpBundle.GTP_BUNDLE,
             GtpChapter.GTP_CHAPTER,
             GtpLine.GTP_LINE,
+            GtpRegion.GTP_REGION,
             GtpSection.GTP_SECTION,
             GtpSubChapter.GTP_SUB_CHAPTER,
             GtpTitle.GTP_TITLE,

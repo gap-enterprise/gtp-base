@@ -149,6 +149,16 @@ public class GtpWarrantView extends TableImpl<GtpWarrantViewRecord> {
     public final TableField<GtpWarrantViewRecord, String> CODE_ISSUER = createField(DSL.name("code_issuer"), SQLDataType.VARCHAR(50), this, "");
 
     /**
+     * The column <code>public.gtp_warrant_view.gross</code>.
+     */
+    public final TableField<GtpWarrantViewRecord, Double> GROSS = createField(DSL.name("gross"), SQLDataType.DOUBLE, this, "");
+
+    /**
+     * The column <code>public.gtp_warrant_view.deduction</code>.
+     */
+    public final TableField<GtpWarrantViewRecord, Double> DEDUCTION = createField(DSL.name("deduction"), SQLDataType.DOUBLE, this, "");
+
+    /**
      * The column <code>public.gtp_warrant_view.debit_account_pec</code>.
      */
     public final TableField<GtpWarrantViewRecord, String> DEBIT_ACCOUNT_PEC = createField(DSL.name("debit_account_pec"), SQLDataType.VARCHAR(25), this, "");
@@ -203,7 +213,7 @@ public class GtpWarrantView extends TableImpl<GtpWarrantViewRecord> {
     }
 
     private GtpWarrantView(Name alias, Table<GtpWarrantViewRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view("create view \"gtp_warrant_view\" as  SELECT rd.id,\n    rd.type_id,\n    rd.date,\n    rd.reference,\n    rd.object,\n    rd.place,\n    rd.amount,\n    rd.deposit_date,\n    rd.entry_date,\n    rd.issuer_id,\n    rd.other_reference,\n    rd.status_id,\n    rd.step_id,\n    rd.amount_paid,\n    rd.amount_left,\n    rd.advanced_amount,\n    rd.author_id,\n    rd.worker_id,\n    ps.name AS name_issuer,\n    tp.abbreviated AS abbreviated_issuer,\n    tp.code AS code_issuer,\n    wr.debit_account_pec,\n    wr.credit_account_pec,\n    wr.date_pec,\n    wr.title,\n    wr.section,\n    wr.chapter,\n    wr.sub_chapter,\n    wr.line,\n    wr.bundle,\n    wr.imputation\n   FROM (((pay_reference_document rd\n     LEFT JOIN gtp_warrant wr ON ((wr.id = rd.id)))\n     LEFT JOIN pay_third_party tp ON ((tp.id = rd.issuer_id)))\n     LEFT JOIN ad_person ps ON ((ps.id = rd.issuer_id)))\n  WHERE ((rd.type_id)::text = 'WARRANT'::text);"));
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view("create view \"gtp_warrant_view\" as  SELECT rd.id,\n    rd.type_id,\n    rd.date,\n    rd.reference,\n    rd.object,\n    rd.place,\n    rd.amount,\n    rd.deposit_date,\n    rd.entry_date,\n    rd.issuer_id,\n    rd.other_reference,\n    rd.status_id,\n    rd.step_id,\n    rd.amount_paid,\n    rd.amount_left,\n    rd.advanced_amount,\n    rd.author_id,\n    rd.worker_id,\n    ps.name AS name_issuer,\n    tp.abbreviated AS abbreviated_issuer,\n    tp.code AS code_issuer,\n    wr.gross,\n    wr.deduction,\n    wr.debit_account_pec,\n    wr.credit_account_pec,\n    wr.date_pec,\n    wr.title,\n    wr.section,\n    wr.chapter,\n    wr.sub_chapter,\n    wr.line,\n    wr.bundle,\n    wr.imputation\n   FROM (((pay_reference_document rd\n     LEFT JOIN gtp_warrant wr ON ((wr.id = rd.id)))\n     LEFT JOIN pay_third_party tp ON ((tp.id = rd.issuer_id)))\n     LEFT JOIN ad_person ps ON ((ps.id = rd.issuer_id)))\n  WHERE ((rd.type_id)::text = 'WARRANT'::text);"));
     }
 
     /**

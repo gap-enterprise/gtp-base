@@ -8,6 +8,7 @@ import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpAccountPec;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpBundle;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpChapter;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpLine;
+import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpRegion;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpSection;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpSubChapter;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpTitle;
@@ -16,6 +17,7 @@ import io.surati.gap.gtp.base.db.jooq.generated.tables.records.GtpAccountPecReco
 import io.surati.gap.gtp.base.db.jooq.generated.tables.records.GtpBundleRecord;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.records.GtpChapterRecord;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.records.GtpLineRecord;
+import io.surati.gap.gtp.base.db.jooq.generated.tables.records.GtpRegionRecord;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.records.GtpSectionRecord;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.records.GtpSubChapterRecord;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.records.GtpTitleRecord;
@@ -43,6 +45,7 @@ public class Keys {
     public static final UniqueKey<GtpBundleRecord> GTP_BUNDLE_PKEY = Internal.createUniqueKey(GtpBundle.GTP_BUNDLE, DSL.name("gtp_bundle_pkey"), new TableField[] { GtpBundle.GTP_BUNDLE.CODE }, true);
     public static final UniqueKey<GtpChapterRecord> GTP_CHAPTER_PKEY = Internal.createUniqueKey(GtpChapter.GTP_CHAPTER, DSL.name("gtp_chapter_pkey"), new TableField[] { GtpChapter.GTP_CHAPTER.CODE }, true);
     public static final UniqueKey<GtpLineRecord> GTP_LINE_PKEY = Internal.createUniqueKey(GtpLine.GTP_LINE, DSL.name("gtp_line_pkey"), new TableField[] { GtpLine.GTP_LINE.CODE }, true);
+    public static final UniqueKey<GtpRegionRecord> GTP_REGION_PKEY = Internal.createUniqueKey(GtpRegion.GTP_REGION, DSL.name("gtp_region_pkey"), new TableField[] { GtpRegion.GTP_REGION.CODE }, true);
     public static final UniqueKey<GtpSectionRecord> GTP_SECTION_PKEY = Internal.createUniqueKey(GtpSection.GTP_SECTION, DSL.name("gtp_section_pkey"), new TableField[] { GtpSection.GTP_SECTION.CODE }, true);
     public static final UniqueKey<GtpSubChapterRecord> GTP_SUB_CHAPTER_PKEY = Internal.createUniqueKey(GtpSubChapter.GTP_SUB_CHAPTER, DSL.name("gtp_sub_chapter_pkey"), new TableField[] { GtpSubChapter.GTP_SUB_CHAPTER.CODE }, true);
     public static final UniqueKey<GtpTitleRecord> GTP_TITLE_PKEY = Internal.createUniqueKey(GtpTitle.GTP_TITLE, DSL.name("gtp_title_pkey"), new TableField[] { GtpTitle.GTP_TITLE.CODE }, true);
