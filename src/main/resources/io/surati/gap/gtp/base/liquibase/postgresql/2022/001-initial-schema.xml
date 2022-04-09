@@ -78,6 +78,7 @@ SOFTWARE.
         sub_chapter character varying(10) NOT NULL,
         line character varying(10) NOT NULL,
         bundle character varying(10) NOT NULL,
+        region character varying(10) NOT NULL,
         imputation character varying(50) NOT NULL,
         CONSTRAINT gtp_warrant_id_fkey FOREIGN KEY (id) REFERENCES pay_reference_document (id)
           ON UPDATE CASCADE ON DELETE CASCADE,
@@ -96,31 +97,13 @@ SOFTWARE.
         CONSTRAINT gtp_warrant_sub_line_fkey FOREIGN KEY (line) REFERENCES gtp_line (code)
           ON UPDATE CASCADE ON DELETE CASCADE,
         CONSTRAINT gtp_warrant_bundle_fkey FOREIGN KEY (bundle) REFERENCES gtp_bundle (code)
+          ON UPDATE CASCADE ON DELETE CASCADE,
+        CONSTRAINT gtp_warrant_region_fkey FOREIGN KEY (region) REFERENCES gtp_region (code)
           ON UPDATE CASCADE ON DELETE CASCADE
       );
 
       CREATE VIEW gtp_warrant_view AS
-        SELECT rd.id,
-          rd.type_id,
-          rd.date,
-          rd.reference,
-          rd.object,
-          rd.place,
-          rd.amount,
-          rd.deposit_date,
-          rd.entry_date,
-          rd.issuer_id,
-          rd.other_reference,
-          rd.status_id,
-          rd.step_id,
-          rd.amount_paid,
-          rd.amount_left,
-          rd.advanced_amount,
-          rd.author_id,
-          rd.worker_id,
-          ps.name AS name_issuer,
-          tp.abbreviated AS abbreviated_issuer,
-          tp.code AS code_issuer,
+        SELECT rd.*,
           wr.gross,
           wr.deduction,
           wr.debit_account_pec,
@@ -132,12 +115,10 @@ SOFTWARE.
           wr.sub_chapter,
           wr.line,
           wr.bundle,
+          wr.region,
           wr.imputation
-        FROM pay_reference_document rd
-        LEFT JOIN gtp_warrant wr ON wr.id = rd.id
-        LEFT JOIN pay_third_party tp ON tp.id = rd.issuer_id
-        LEFT JOIN ad_person ps ON ps.id = rd.issuer_id
-        WHERE rd.type_id='WARRANT';
+        FROM gtp_warrant wr
+        LEFT JOIN pay_reference_document_view rd ON rd.id = wr.id;
     </sql>
   </changeSet>
 </databaseChangeLog>

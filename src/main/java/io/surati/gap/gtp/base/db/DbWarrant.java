@@ -129,11 +129,6 @@ public final class DbWarrant implements Warrant {
     }
 
     @Override
-    public Double advancedAmount() {
-        return this.origin.advancedAmount();
-    }
-
-    @Override
     public Double amountPaid() {
         return this.origin.amountPaid();
     }
