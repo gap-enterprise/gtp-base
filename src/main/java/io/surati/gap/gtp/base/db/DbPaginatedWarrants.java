@@ -136,9 +136,9 @@ public final class DbPaginatedWarrants implements Warrants {
         if (org.apache.commons.lang3.StringUtils.isNotBlank(filter)) {
             result = result.and(
                 DSL.falseCondition()
-                    .or(GtpWarrantView.GTP_WARRANT_VIEW.ABBREVIATED_ISSUER.like("%" + this.filter + "%"))
-                    .or(GtpWarrantView.GTP_WARRANT_VIEW.CODE_ISSUER.like("%" + this.filter + "%"))
-                    .or(GtpWarrantView.GTP_WARRANT_VIEW.NAME_ISSUER.like("%" + this.filter + "%"))
+                    .or(GtpWarrantView.GTP_WARRANT_VIEW.BENEFICIARY_ABBREVIATED.like("%" + this.filter + "%"))
+                    .or(GtpWarrantView.GTP_WARRANT_VIEW.BENEFICIARY_CODE.like("%" + this.filter + "%"))
+                    .or(GtpWarrantView.GTP_WARRANT_VIEW.BENEFICIARY_NAME.like("%" + this.filter + "%"))
                     .or(GtpWarrantView.GTP_WARRANT_VIEW.REFERENCE.like("%" + this.filter + "%"))
                     .or(GtpWarrantView.GTP_WARRANT_VIEW.IMPUTATION.like("%" + this.filter + "%"))
 
