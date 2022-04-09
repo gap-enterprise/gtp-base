@@ -36,10 +36,10 @@ SOFTWARE.
       INSERT INTO gtp_sub_chapter (code, name, notes) VALUES ('121', 'Sous-chapitre 121', '');
       INSERT INTO gtp_sub_chapter (code, name, notes) VALUES ('122', 'Sous-chapitre 122', '');
 
-      INSERT INTO gtp_region (code, name, notes) VALUES ('01', 'Opération d'intérêt national', '');
-      INSERT INTO gtp_region (code, name, notes) VALUES ('02', 'Opération d'intérêt regionaux', '');
-      INSERT INTO gtp_region (code, name, notes) VALUES ('03', 'Opération d'intérêt rural', '');
-      INSERT INTO gtp_region (code, name, notes) VALUES ('04', 'Opération d'intérêt privé', '');
+      INSERT INTO gtp_region (code, name, notes) VALUES ('01', 'Opération d''intérêt national', '');
+      INSERT INTO gtp_region (code, name, notes) VALUES ('02', 'Opération d''intérêt regionaux', '');
+      INSERT INTO gtp_region (code, name, notes) VALUES ('03', 'Opération d''intérêt rural', '');
+      INSERT INTO gtp_region (code, name, notes) VALUES ('04', 'Opération d''intérêt privé', '');
 
       INSERT INTO gtp_account_pec (code, name, notes) VALUES ('401.2', 'Compte 401.2', '');
       INSERT INTO gtp_account_pec (code, name, notes) VALUES ('411.9', 'Compte 411.9', '');

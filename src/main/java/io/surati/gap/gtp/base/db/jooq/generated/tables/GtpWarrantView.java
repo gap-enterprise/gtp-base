@@ -64,6 +64,11 @@ public class GtpWarrantView extends TableImpl<GtpWarrantViewRecord> {
     public final TableField<GtpWarrantViewRecord, String> REFERENCE = createField(DSL.name("reference"), SQLDataType.VARCHAR(50), this, "");
 
     /**
+     * The column <code>public.gtp_warrant_view.internal_reference</code>.
+     */
+    public final TableField<GtpWarrantViewRecord, String> INTERNAL_REFERENCE = createField(DSL.name("internal_reference"), SQLDataType.VARCHAR(50), this, "");
+
+    /**
      * The column <code>public.gtp_warrant_view.object</code>.
      */
     public final TableField<GtpWarrantViewRecord, String> OBJECT = createField(DSL.name("object"), SQLDataType.VARCHAR(100), this, "");
@@ -89,39 +94,14 @@ public class GtpWarrantView extends TableImpl<GtpWarrantViewRecord> {
     public final TableField<GtpWarrantViewRecord, LocalDate> ENTRY_DATE = createField(DSL.name("entry_date"), SQLDataType.LOCALDATE, this, "");
 
     /**
-     * The column <code>public.gtp_warrant_view.issuer_id</code>.
+     * The column <code>public.gtp_warrant_view.beneficiary_id</code>.
      */
-    public final TableField<GtpWarrantViewRecord, Long> ISSUER_ID = createField(DSL.name("issuer_id"), SQLDataType.BIGINT, this, "");
-
-    /**
-     * The column <code>public.gtp_warrant_view.other_reference</code>.
-     */
-    public final TableField<GtpWarrantViewRecord, String> OTHER_REFERENCE = createField(DSL.name("other_reference"), SQLDataType.VARCHAR(50), this, "");
-
-    /**
-     * The column <code>public.gtp_warrant_view.status_id</code>.
-     */
-    public final TableField<GtpWarrantViewRecord, String> STATUS_ID = createField(DSL.name("status_id"), SQLDataType.VARCHAR(25), this, "");
+    public final TableField<GtpWarrantViewRecord, Long> BENEFICIARY_ID = createField(DSL.name("beneficiary_id"), SQLDataType.BIGINT, this, "");
 
     /**
      * The column <code>public.gtp_warrant_view.step_id</code>.
      */
     public final TableField<GtpWarrantViewRecord, String> STEP_ID = createField(DSL.name("step_id"), SQLDataType.VARCHAR(25), this, "");
-
-    /**
-     * The column <code>public.gtp_warrant_view.amount_paid</code>.
-     */
-    public final TableField<GtpWarrantViewRecord, Double> AMOUNT_PAID = createField(DSL.name("amount_paid"), SQLDataType.DOUBLE, this, "");
-
-    /**
-     * The column <code>public.gtp_warrant_view.amount_left</code>.
-     */
-    public final TableField<GtpWarrantViewRecord, Double> AMOUNT_LEFT = createField(DSL.name("amount_left"), SQLDataType.DOUBLE, this, "");
-
-    /**
-     * The column <code>public.gtp_warrant_view.advanced_amount</code>.
-     */
-    public final TableField<GtpWarrantViewRecord, Double> ADVANCED_AMOUNT = createField(DSL.name("advanced_amount"), SQLDataType.DOUBLE, this, "");
 
     /**
      * The column <code>public.gtp_warrant_view.author_id</code>.
@@ -134,19 +114,34 @@ public class GtpWarrantView extends TableImpl<GtpWarrantViewRecord> {
     public final TableField<GtpWarrantViewRecord, Long> WORKER_ID = createField(DSL.name("worker_id"), SQLDataType.BIGINT, this, "");
 
     /**
-     * The column <code>public.gtp_warrant_view.name_issuer</code>.
+     * The column <code>public.gtp_warrant_view.status_id</code>.
      */
-    public final TableField<GtpWarrantViewRecord, String> NAME_ISSUER = createField(DSL.name("name_issuer"), SQLDataType.VARCHAR(100), this, "");
+    public final TableField<GtpWarrantViewRecord, String> STATUS_ID = createField(DSL.name("status_id"), SQLDataType.CLOB, this, "");
 
     /**
-     * The column <code>public.gtp_warrant_view.abbreviated_issuer</code>.
+     * The column <code>public.gtp_warrant_view.amount_paid</code>.
      */
-    public final TableField<GtpWarrantViewRecord, String> ABBREVIATED_ISSUER = createField(DSL.name("abbreviated_issuer"), SQLDataType.VARCHAR(100), this, "");
+    public final TableField<GtpWarrantViewRecord, Double> AMOUNT_PAID = createField(DSL.name("amount_paid"), SQLDataType.DOUBLE, this, "");
 
     /**
-     * The column <code>public.gtp_warrant_view.code_issuer</code>.
+     * The column <code>public.gtp_warrant_view.amount_left</code>.
      */
-    public final TableField<GtpWarrantViewRecord, String> CODE_ISSUER = createField(DSL.name("code_issuer"), SQLDataType.VARCHAR(50), this, "");
+    public final TableField<GtpWarrantViewRecord, Double> AMOUNT_LEFT = createField(DSL.name("amount_left"), SQLDataType.DOUBLE, this, "");
+
+    /**
+     * The column <code>public.gtp_warrant_view.beneficiary_name</code>.
+     */
+    public final TableField<GtpWarrantViewRecord, String> BENEFICIARY_NAME = createField(DSL.name("beneficiary_name"), SQLDataType.VARCHAR(100), this, "");
+
+    /**
+     * The column <code>public.gtp_warrant_view.beneficiary_abbreviated</code>.
+     */
+    public final TableField<GtpWarrantViewRecord, String> BENEFICIARY_ABBREVIATED = createField(DSL.name("beneficiary_abbreviated"), SQLDataType.VARCHAR(100), this, "");
+
+    /**
+     * The column <code>public.gtp_warrant_view.beneficiary_code</code>.
+     */
+    public final TableField<GtpWarrantViewRecord, String> BENEFICIARY_CODE = createField(DSL.name("beneficiary_code"), SQLDataType.VARCHAR(50), this, "");
 
     /**
      * The column <code>public.gtp_warrant_view.gross</code>.
@@ -204,6 +199,11 @@ public class GtpWarrantView extends TableImpl<GtpWarrantViewRecord> {
     public final TableField<GtpWarrantViewRecord, String> BUNDLE = createField(DSL.name("bundle"), SQLDataType.VARCHAR(10), this, "");
 
     /**
+     * The column <code>public.gtp_warrant_view.region</code>.
+     */
+    public final TableField<GtpWarrantViewRecord, String> REGION = createField(DSL.name("region"), SQLDataType.VARCHAR(10), this, "");
+
+    /**
      * The column <code>public.gtp_warrant_view.imputation</code>.
      */
     public final TableField<GtpWarrantViewRecord, String> IMPUTATION = createField(DSL.name("imputation"), SQLDataType.VARCHAR(50), this, "");
@@ -213,7 +213,7 @@ public class GtpWarrantView extends TableImpl<GtpWarrantViewRecord> {
     }
 
     private GtpWarrantView(Name alias, Table<GtpWarrantViewRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view("create view \"gtp_warrant_view\" as  SELECT rd.id,\n    rd.type_id,\n    rd.date,\n    rd.reference,\n    rd.object,\n    rd.place,\n    rd.amount,\n    rd.deposit_date,\n    rd.entry_date,\n    rd.issuer_id,\n    rd.other_reference,\n    rd.status_id,\n    rd.step_id,\n    rd.amount_paid,\n    rd.amount_left,\n    rd.advanced_amount,\n    rd.author_id,\n    rd.worker_id,\n    ps.name AS name_issuer,\n    tp.abbreviated AS abbreviated_issuer,\n    tp.code AS code_issuer,\n    wr.gross,\n    wr.deduction,\n    wr.debit_account_pec,\n    wr.credit_account_pec,\n    wr.date_pec,\n    wr.title,\n    wr.section,\n    wr.chapter,\n    wr.sub_chapter,\n    wr.line,\n    wr.bundle,\n    wr.imputation\n   FROM (((pay_reference_document rd\n     LEFT JOIN gtp_warrant wr ON ((wr.id = rd.id)))\n     LEFT JOIN pay_third_party tp ON ((tp.id = rd.issuer_id)))\n     LEFT JOIN ad_person ps ON ((ps.id = rd.issuer_id)))\n  WHERE ((rd.type_id)::text = 'WARRANT'::text);"));
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view("create view \"gtp_warrant_view\" as  SELECT rd.id,\n    rd.type_id,\n    rd.date,\n    rd.reference,\n    rd.internal_reference,\n    rd.object,\n    rd.place,\n    rd.amount,\n    rd.deposit_date,\n    rd.entry_date,\n    rd.beneficiary_id,\n    rd.step_id,\n    rd.author_id,\n    rd.worker_id,\n    rd.status_id,\n    rd.amount_paid,\n    rd.amount_left,\n    rd.beneficiary_name,\n    rd.beneficiary_abbreviated,\n    rd.beneficiary_code,\n    wr.gross,\n    wr.deduction,\n    wr.debit_account_pec,\n    wr.credit_account_pec,\n    wr.date_pec,\n    wr.title,\n    wr.section,\n    wr.chapter,\n    wr.sub_chapter,\n    wr.line,\n    wr.bundle,\n    wr.region,\n    wr.imputation\n   FROM (gtp_warrant wr\n     LEFT JOIN pay_reference_document_view rd ON ((rd.id = wr.id)));"));
     }
 
     /**
