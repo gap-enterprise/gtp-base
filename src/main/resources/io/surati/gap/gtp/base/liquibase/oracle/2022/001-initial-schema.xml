@@ -119,6 +119,110 @@ SOFTWARE.
                         wr.imputation
                         FROM gtp_warrant wr
                         LEFT JOIN pay_reference_document_view rd ON rd.id = wr.id;
+
+                        CREATE TABLE gtp_annual_warrant (
+                        id bigint NOT NULL,
+                        fiscal_year smallint NOT NULL,
+                        no integer NOT NULL,
+                        annual_amount_to_pay DOUBLE PRECISION NOT NULL,
+                        annual_amount_paid DOUBLE PRECISION NOT NULL,
+                        annual_amount_left DOUBLE PRECISION NOT NULL,
+                        is_split BOOLEAN NOT NULL,
+                        CONSTRAINT gtp_annual_warrant_pkey PRIMARY KEY (id, fiscal_year),
+                        CONSTRAINT gtp_annual_warrant_id_fkey FOREIGN KEY (id) REFERENCES gtp_warrant (id)
+                        ON UPDATE CASCADE ON DELETE CASCADE
+                        );
+
+                        CREATE VIEW gtp_annual_warrant_view AS
+                        SELECT
+                        awr.no,
+                        awr.fiscal_year,
+                        awr.annual_amount_to_pay,
+                        awr.annual_amount_paid,
+                        awr.annual_amount_left,
+                        awr.is_split,
+                        wr.*
+                        FROM gtp_annual_warrant awr
+                        LEFT JOIN gtp_warrant_view wr ON wr.id = awr.id
+                        ORDER BY wr.id;
+                </sql>
+    <sql dbms="oracle"><![CDATA[
+		CREATE OR REPLACE FUNCTION gtp_func_update_annual_warrant() RETURNS trigger AS
+		'
+		DECLARE
+			cur_year smallint;
+			cur_no integer;
+			cur_is_split boolean;
+			cur_warrant_id bigint;
+			cur_total_amount double precision;
+			cur_amount_paid_before double precision;
+		    cur_annual_amount_to_pay double precision;
+		    cur_annual_amount_paid double precision;
+		    cur_annual_amount_left double precision;
+		BEGIN
+		    IF NEW.reference_document_id IS NULL THEN
+		    	RETURN NEW;
+		    END IF;
+			cur_year := DATE_PART($$year$$, NEW.date);
+			cur_warrant_id := NEW.reference_document_id;
+		     SELECT SUM(amount) INTO cur_amount_paid_before
+				FROM pay_payment_order
+				WHERE reference_document_id=cur_warrant_id
+				 AND status_id=$$EXECUTED$$
+				 AND DATE_PART($$year$$, date) < cur_year
+			    GROUP BY reference_document_id;
+			 SELECT amount INTO cur_total_amount
+			 FROM pay_reference_document WHERE id = cur_warrant_id;
+		     cur_annual_amount_to_pay := COALESCE(cur_total_amount, 0) - COALESCE(cur_amount_paid_before, 0);
+		     SELECT SUM(amount) INTO cur_annual_amount_paid
+				FROM pay_payment_order
+				WHERE reference_document_id=cur_warrant_id
+				 AND status_id=$$EXECUTED$$
+				 AND DATE_PART($$year$$, date) = cur_year
+				GROUP BY reference_document_id;
+			cur_annual_amount_paid := COALESCE(cur_annual_amount_paid, 0);
+			cur_annual_amount_left := cur_annual_amount_to_pay - cur_annual_amount_paid;
+			cur_is_split := NOT(cur_total_amount=cur_annual_amount_to_pay AND cur_annual_amount_left=0);
+			cur_no := CASE
+				WHEN (select count(*) from gtp_annual_warrant where fiscal_year=cur_year and is_split=cur_is_split) = 0 THEN 1
+				ELSE (select no from gtp_annual_warrant where fiscal_year=cur_year and is_split=cur_is_split order by no desc limit 1) + 1
+			END;
+			IF EXISTS (
+				SELECT * FROM gtp_annual_warrant
+				WHERE id = cur_warrant_id AND fiscal_year = cur_year
+			) THEN
+				UPDATE gtp_annual_warrant
+				SET annual_amount_to_pay=cur_annual_amount_to_pay,
+					annual_amount_paid=cur_annual_amount_paid,
+					annual_amount_left=cur_annual_amount_left,
+					is_split=cur_is_split
+				WHERE id = cur_warrant_id;
+			ELSE
+				INSERT INTO gtp_annual_warrant(
+					id, fiscal_year, annual_amount_to_pay,
+					annual_amount_paid, annual_amount_left, is_split, no
+				) VALUES (
+					cur_warrant_id,
+					cur_year,
+					cur_annual_amount_to_pay,
+					cur_annual_amount_paid,
+					cur_annual_amount_left,
+					cur_is_split,
+					cur_no
+				);
+			END IF;
+			DELETE FROM gtp_annual_warrant
+			WHERE id = cur_warrant_id
+				AND fiscal_year = cur_year
+				AND annual_amount_paid = 0;
+			RETURN NEW;
+		END;
+		'
+		LANGUAGE plpgsql;
+		]]>
+
+                        CREATE TRIGGER gtp_tri_update_annual_warrant AFTER INSERT OR UPDATE OR DELETE ON pay_payment_order
+                        FOR EACH ROW EXECUTE FUNCTION gtp_func_update_annual_warrant();
                 </sql>
   </changeSet>
 </databaseChangeLog>
