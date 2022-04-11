@@ -6785,8 +6785,5 @@ SOFTWARE.
       INSERT INTO gtp_warrant (id, gross, deduction, debit_account_pec, credit_account_pec, date_pec, title, section, chapter, sub_chapter, line, bundle, imputation, region) VALUES (11020, 14969060, 0, NULL, '501.2', '2021-02-13', '5', '24', '58', '121', '25', '2', '046061657223012', '02');
       INSERT INTO gtp_warrant (id, gross, deduction, debit_account_pec, credit_account_pec, date_pec, title, section, chapter, sub_chapter, line, bundle, imputation, region) VALUES (11021, 935834, 0, NULL, '511.9', '2021-01-04', '3', '17', '89', '122', '17', '4', '471911131260887', '01');
     </sql>
-    <sql><!-- It's to generate annual warrants. -->
-        UPDATE pay_payment_order SET date = date;
-    </sql>
   </changeSet>
 </databaseChangeLog>

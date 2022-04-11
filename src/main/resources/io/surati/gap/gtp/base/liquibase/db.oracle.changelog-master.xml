@@ -20,4 +20,5 @@ SOFTWARE.
   <includeAll path="io/surati/gap/gtp/base/liquibase/oracle/2022"/>
   <include file="io/surati/gap/gtp/base/liquibase/998-prod.xml"/>
   <include file="io/surati/gap/gtp/base/liquibase/999-demo.xml"/>
+  <include file="io/surati/gap/gtp/base/liquibase/999-001-demo.xml"/>
 </databaseChangeLog>

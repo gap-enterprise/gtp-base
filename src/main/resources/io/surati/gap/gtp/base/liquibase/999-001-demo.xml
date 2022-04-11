@@ -16,9 +16,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -->
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
-  <include file="io/surati/gap/payment/base/liquibase/db.postgresql.changelog-master.xml"/>
-  <includeAll path="io/surati/gap/gtp/base/liquibase/postgresql/2022"/>
-  <include file="io/surati/gap/gtp/base/liquibase/998-prod.xml"/>
-  <include file="io/surati/gap/gtp/base/liquibase/999-demo.xml"/>
-  <include file="io/surati/gap/gtp/base/liquibase/999-001-demo.xml"/>
+  <changeSet author="baudoliver7" id="999" context="demo">
+    <sql><!-- It's to generate annual warrants. -->
+        UPDATE pay_payment_order SET date = date;
+    </sql>
+  </changeSet>
 </databaseChangeLog>
