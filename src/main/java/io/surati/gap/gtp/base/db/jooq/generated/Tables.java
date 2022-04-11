@@ -5,6 +5,8 @@ package io.surati.gap.gtp.base.db.jooq.generated;
 
 
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpAccountPec;
+import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpAnnualWarrant;
+import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpAnnualWarrantView;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpBundle;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpChapter;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpLine;
@@ -26,6 +28,16 @@ public class Tables {
      * The table <code>public.gtp_account_pec</code>.
      */
     public static final GtpAccountPec GTP_ACCOUNT_PEC = GtpAccountPec.GTP_ACCOUNT_PEC;
+
+    /**
+     * The table <code>public.gtp_annual_warrant</code>.
+     */
+    public static final GtpAnnualWarrant GTP_ANNUAL_WARRANT = GtpAnnualWarrant.GTP_ANNUAL_WARRANT;
+
+    /**
+     * The table <code>public.gtp_annual_warrant_view</code>.
+     */
+    public static final GtpAnnualWarrantView GTP_ANNUAL_WARRANT_VIEW = GtpAnnualWarrantView.GTP_ANNUAL_WARRANT_VIEW;
 
     /**
      * The table <code>public.gtp_bundle</code>.

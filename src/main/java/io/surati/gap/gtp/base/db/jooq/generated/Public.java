@@ -5,6 +5,8 @@ package io.surati.gap.gtp.base.db.jooq.generated;
 
 
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpAccountPec;
+import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpAnnualWarrant;
+import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpAnnualWarrantView;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpBundle;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpChapter;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpLine;
@@ -40,6 +42,16 @@ public class Public extends SchemaImpl {
      * The table <code>public.gtp_account_pec</code>.
      */
     public final GtpAccountPec GTP_ACCOUNT_PEC = GtpAccountPec.GTP_ACCOUNT_PEC;
+
+    /**
+     * The table <code>public.gtp_annual_warrant</code>.
+     */
+    public final GtpAnnualWarrant GTP_ANNUAL_WARRANT = GtpAnnualWarrant.GTP_ANNUAL_WARRANT;
+
+    /**
+     * The table <code>public.gtp_annual_warrant_view</code>.
+     */
+    public final GtpAnnualWarrantView GTP_ANNUAL_WARRANT_VIEW = GtpAnnualWarrantView.GTP_ANNUAL_WARRANT_VIEW;
 
     /**
      * The table <code>public.gtp_bundle</code>.
@@ -103,6 +115,8 @@ public class Public extends SchemaImpl {
     public final List<Table<?>> getTables() {
         return Arrays.<Table<?>>asList(
             GtpAccountPec.GTP_ACCOUNT_PEC,
+            GtpAnnualWarrant.GTP_ANNUAL_WARRANT,
+            GtpAnnualWarrantView.GTP_ANNUAL_WARRANT_VIEW,
             GtpBundle.GTP_BUNDLE,
             GtpChapter.GTP_CHAPTER,
             GtpLine.GTP_LINE,
