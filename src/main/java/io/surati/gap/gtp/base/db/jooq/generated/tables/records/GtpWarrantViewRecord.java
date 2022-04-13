@@ -300,185 +300,199 @@ public class GtpWarrantViewRecord extends TableRecordImpl<GtpWarrantViewRecord> 
     }
 
     /**
+     * Setter for <code>public.gtp_warrant_view.treasury_id</code>.
+     */
+    public void setTreasuryId(Long value) {
+        set(20, value);
+    }
+
+    /**
+     * Getter for <code>public.gtp_warrant_view.treasury_id</code>.
+     */
+    public Long getTreasuryId() {
+        return (Long) get(20);
+    }
+
+    /**
      * Setter for <code>public.gtp_warrant_view.gross</code>.
      */
     public void setGross(Double value) {
-        set(20, value);
+        set(21, value);
     }
 
     /**
      * Getter for <code>public.gtp_warrant_view.gross</code>.
      */
     public Double getGross() {
-        return (Double) get(20);
+        return (Double) get(21);
     }
 
     /**
      * Setter for <code>public.gtp_warrant_view.deduction</code>.
      */
     public void setDeduction(Double value) {
-        set(21, value);
+        set(22, value);
     }
 
     /**
      * Getter for <code>public.gtp_warrant_view.deduction</code>.
      */
     public Double getDeduction() {
-        return (Double) get(21);
+        return (Double) get(22);
     }
 
     /**
      * Setter for <code>public.gtp_warrant_view.debit_account_pec</code>.
      */
     public void setDebitAccountPec(String value) {
-        set(22, value);
+        set(23, value);
     }
 
     /**
      * Getter for <code>public.gtp_warrant_view.debit_account_pec</code>.
      */
     public String getDebitAccountPec() {
-        return (String) get(22);
+        return (String) get(23);
     }
 
     /**
      * Setter for <code>public.gtp_warrant_view.credit_account_pec</code>.
      */
     public void setCreditAccountPec(String value) {
-        set(23, value);
+        set(24, value);
     }
 
     /**
      * Getter for <code>public.gtp_warrant_view.credit_account_pec</code>.
      */
     public String getCreditAccountPec() {
-        return (String) get(23);
+        return (String) get(24);
     }
 
     /**
      * Setter for <code>public.gtp_warrant_view.date_pec</code>.
      */
     public void setDatePec(LocalDate value) {
-        set(24, value);
+        set(25, value);
     }
 
     /**
      * Getter for <code>public.gtp_warrant_view.date_pec</code>.
      */
     public LocalDate getDatePec() {
-        return (LocalDate) get(24);
+        return (LocalDate) get(25);
     }
 
     /**
      * Setter for <code>public.gtp_warrant_view.title</code>.
      */
     public void setTitle(String value) {
-        set(25, value);
+        set(26, value);
     }
 
     /**
      * Getter for <code>public.gtp_warrant_view.title</code>.
      */
     public String getTitle() {
-        return (String) get(25);
+        return (String) get(26);
     }
 
     /**
      * Setter for <code>public.gtp_warrant_view.section</code>.
      */
     public void setSection(String value) {
-        set(26, value);
+        set(27, value);
     }
 
     /**
      * Getter for <code>public.gtp_warrant_view.section</code>.
      */
     public String getSection() {
-        return (String) get(26);
+        return (String) get(27);
     }
 
     /**
      * Setter for <code>public.gtp_warrant_view.chapter</code>.
      */
     public void setChapter(String value) {
-        set(27, value);
+        set(28, value);
     }
 
     /**
      * Getter for <code>public.gtp_warrant_view.chapter</code>.
      */
     public String getChapter() {
-        return (String) get(27);
+        return (String) get(28);
     }
 
     /**
      * Setter for <code>public.gtp_warrant_view.sub_chapter</code>.
      */
     public void setSubChapter(String value) {
-        set(28, value);
+        set(29, value);
     }
 
     /**
      * Getter for <code>public.gtp_warrant_view.sub_chapter</code>.
      */
     public String getSubChapter() {
-        return (String) get(28);
+        return (String) get(29);
     }
 
     /**
      * Setter for <code>public.gtp_warrant_view.line</code>.
      */
     public void setLine(String value) {
-        set(29, value);
+        set(30, value);
     }
 
     /**
      * Getter for <code>public.gtp_warrant_view.line</code>.
      */
     public String getLine() {
-        return (String) get(29);
+        return (String) get(30);
     }
 
     /**
      * Setter for <code>public.gtp_warrant_view.bundle</code>.
      */
     public void setBundle(String value) {
-        set(30, value);
+        set(31, value);
     }
 
     /**
      * Getter for <code>public.gtp_warrant_view.bundle</code>.
      */
     public String getBundle() {
-        return (String) get(30);
+        return (String) get(31);
     }
 
     /**
      * Setter for <code>public.gtp_warrant_view.region</code>.
      */
     public void setRegion(String value) {
-        set(31, value);
+        set(32, value);
     }
 
     /**
      * Getter for <code>public.gtp_warrant_view.region</code>.
      */
     public String getRegion() {
-        return (String) get(31);
+        return (String) get(32);
     }
 
     /**
      * Setter for <code>public.gtp_warrant_view.imputation</code>.
      */
     public void setImputation(String value) {
-        set(32, value);
+        set(33, value);
     }
 
     /**
      * Getter for <code>public.gtp_warrant_view.imputation</code>.
      */
     public String getImputation() {
-        return (String) get(32);
+        return (String) get(33);
     }
 
     // -------------------------------------------------------------------------
@@ -495,7 +509,7 @@ public class GtpWarrantViewRecord extends TableRecordImpl<GtpWarrantViewRecord> 
     /**
      * Create a detached, initialised GtpWarrantViewRecord
      */
-    public GtpWarrantViewRecord(Long id, String typeId, LocalDate date, String reference, String internalReference, String object, String place, Double amount, LocalDate depositDate, LocalDate entryDate, Long beneficiaryId, String stepId, Long authorId, Long workerId, String statusId, Double amountPaid, Double amountLeft, String beneficiaryName, String beneficiaryAbbreviated, String beneficiaryCode, Double gross, Double deduction, String debitAccountPec, String creditAccountPec, LocalDate datePec, String title, String section, String chapter, String subChapter, String line, String bundle, String region, String imputation) {
+    public GtpWarrantViewRecord(Long id, String typeId, LocalDate date, String reference, String internalReference, String object, String place, Double amount, LocalDate depositDate, LocalDate entryDate, Long beneficiaryId, String stepId, Long authorId, Long workerId, String statusId, Double amountPaid, Double amountLeft, String beneficiaryName, String beneficiaryAbbreviated, String beneficiaryCode, Long treasuryId, Double gross, Double deduction, String debitAccountPec, String creditAccountPec, LocalDate datePec, String title, String section, String chapter, String subChapter, String line, String bundle, String region, String imputation) {
         super(GtpWarrantView.GTP_WARRANT_VIEW);
 
         setId(id);
@@ -518,6 +532,7 @@ public class GtpWarrantViewRecord extends TableRecordImpl<GtpWarrantViewRecord> 
         setBeneficiaryName(beneficiaryName);
         setBeneficiaryAbbreviated(beneficiaryAbbreviated);
         setBeneficiaryCode(beneficiaryCode);
+        setTreasuryId(treasuryId);
         setGross(gross);
         setDeduction(deduction);
         setDebitAccountPec(debitAccountPec);

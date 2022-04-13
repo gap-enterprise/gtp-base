@@ -4,6 +4,8 @@ import io.surati.gap.payment.base.api.ReferenceDocument;
 
 public interface Warrant extends ReferenceDocument {
 
+    Treasury treasury();
+
     Title title();
 
     Section section();

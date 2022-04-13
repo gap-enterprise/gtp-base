@@ -44,36 +44,6 @@ public class GtpAnnualWarrantView extends TableImpl<GtpAnnualWarrantViewRecord> 
     }
 
     /**
-     * The column <code>public.gtp_annual_warrant_view.no</code>.
-     */
-    public final TableField<GtpAnnualWarrantViewRecord, Integer> NO = createField(DSL.name("no"), SQLDataType.INTEGER, this, "");
-
-    /**
-     * The column <code>public.gtp_annual_warrant_view.fiscal_year</code>.
-     */
-    public final TableField<GtpAnnualWarrantViewRecord, Short> FISCAL_YEAR = createField(DSL.name("fiscal_year"), SQLDataType.SMALLINT, this, "");
-
-    /**
-     * The column <code>public.gtp_annual_warrant_view.annual_amount_to_pay</code>.
-     */
-    public final TableField<GtpAnnualWarrantViewRecord, Double> ANNUAL_AMOUNT_TO_PAY = createField(DSL.name("annual_amount_to_pay"), SQLDataType.DOUBLE, this, "");
-
-    /**
-     * The column <code>public.gtp_annual_warrant_view.annual_amount_paid</code>.
-     */
-    public final TableField<GtpAnnualWarrantViewRecord, Double> ANNUAL_AMOUNT_PAID = createField(DSL.name("annual_amount_paid"), SQLDataType.DOUBLE, this, "");
-
-    /**
-     * The column <code>public.gtp_annual_warrant_view.annual_amount_left</code>.
-     */
-    public final TableField<GtpAnnualWarrantViewRecord, Double> ANNUAL_AMOUNT_LEFT = createField(DSL.name("annual_amount_left"), SQLDataType.DOUBLE, this, "");
-
-    /**
-     * The column <code>public.gtp_annual_warrant_view.is_split</code>.
-     */
-    public final TableField<GtpAnnualWarrantViewRecord, Boolean> IS_SPLIT = createField(DSL.name("is_split"), SQLDataType.BOOLEAN, this, "");
-
-    /**
      * The column <code>public.gtp_annual_warrant_view.id</code>.
      */
     public final TableField<GtpAnnualWarrantViewRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT, this, "");
@@ -174,6 +144,11 @@ public class GtpAnnualWarrantView extends TableImpl<GtpAnnualWarrantViewRecord> 
     public final TableField<GtpAnnualWarrantViewRecord, String> BENEFICIARY_CODE = createField(DSL.name("beneficiary_code"), SQLDataType.VARCHAR(50), this, "");
 
     /**
+     * The column <code>public.gtp_annual_warrant_view.treasury_id</code>.
+     */
+    public final TableField<GtpAnnualWarrantViewRecord, Long> TREASURY_ID = createField(DSL.name("treasury_id"), SQLDataType.BIGINT, this, "");
+
+    /**
      * The column <code>public.gtp_annual_warrant_view.gross</code>.
      */
     public final TableField<GtpAnnualWarrantViewRecord, Double> GROSS = createField(DSL.name("gross"), SQLDataType.DOUBLE, this, "");
@@ -238,12 +213,42 @@ public class GtpAnnualWarrantView extends TableImpl<GtpAnnualWarrantViewRecord> 
      */
     public final TableField<GtpAnnualWarrantViewRecord, String> IMPUTATION = createField(DSL.name("imputation"), SQLDataType.VARCHAR(50), this, "");
 
+    /**
+     * The column <code>public.gtp_annual_warrant_view.no</code>.
+     */
+    public final TableField<GtpAnnualWarrantViewRecord, Integer> NO = createField(DSL.name("no"), SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column <code>public.gtp_annual_warrant_view.fiscal_year</code>.
+     */
+    public final TableField<GtpAnnualWarrantViewRecord, Short> FISCAL_YEAR = createField(DSL.name("fiscal_year"), SQLDataType.SMALLINT, this, "");
+
+    /**
+     * The column <code>public.gtp_annual_warrant_view.annual_amount_to_pay</code>.
+     */
+    public final TableField<GtpAnnualWarrantViewRecord, Double> ANNUAL_AMOUNT_TO_PAY = createField(DSL.name("annual_amount_to_pay"), SQLDataType.DOUBLE, this, "");
+
+    /**
+     * The column <code>public.gtp_annual_warrant_view.annual_amount_paid</code>.
+     */
+    public final TableField<GtpAnnualWarrantViewRecord, Double> ANNUAL_AMOUNT_PAID = createField(DSL.name("annual_amount_paid"), SQLDataType.DOUBLE, this, "");
+
+    /**
+     * The column <code>public.gtp_annual_warrant_view.annual_amount_left</code>.
+     */
+    public final TableField<GtpAnnualWarrantViewRecord, Double> ANNUAL_AMOUNT_LEFT = createField(DSL.name("annual_amount_left"), SQLDataType.DOUBLE, this, "");
+
+    /**
+     * The column <code>public.gtp_annual_warrant_view.is_split</code>.
+     */
+    public final TableField<GtpAnnualWarrantViewRecord, Boolean> IS_SPLIT = createField(DSL.name("is_split"), SQLDataType.BOOLEAN, this, "");
+
     private GtpAnnualWarrantView(Name alias, Table<GtpAnnualWarrantViewRecord> aliased) {
         this(alias, aliased, null);
     }
 
     private GtpAnnualWarrantView(Name alias, Table<GtpAnnualWarrantViewRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view("create view \"gtp_annual_warrant_view\" as  SELECT awr.no,\n    awr.fiscal_year,\n    awr.annual_amount_to_pay,\n    awr.annual_amount_paid,\n    awr.annual_amount_left,\n    awr.is_split,\n    wr.id,\n    wr.type_id,\n    wr.date,\n    wr.reference,\n    wr.internal_reference,\n    wr.object,\n    wr.place,\n    wr.amount,\n    wr.deposit_date,\n    wr.entry_date,\n    wr.beneficiary_id,\n    wr.step_id,\n    wr.author_id,\n    wr.worker_id,\n    wr.status_id,\n    wr.amount_paid,\n    wr.amount_left,\n    wr.beneficiary_name,\n    wr.beneficiary_abbreviated,\n    wr.beneficiary_code,\n    wr.gross,\n    wr.deduction,\n    wr.debit_account_pec,\n    wr.credit_account_pec,\n    wr.date_pec,\n    wr.title,\n    wr.section,\n    wr.chapter,\n    wr.sub_chapter,\n    wr.line,\n    wr.bundle,\n    wr.region,\n    wr.imputation\n   FROM (gtp_annual_warrant awr\n     LEFT JOIN gtp_warrant_view wr ON ((wr.id = awr.id)))\n  ORDER BY wr.id;"));
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view("create view \"gtp_annual_warrant_view\" as  SELECT wr.id,\n    wr.type_id,\n    wr.date,\n    wr.reference,\n    wr.internal_reference,\n    wr.object,\n    wr.place,\n    wr.amount,\n    wr.deposit_date,\n    wr.entry_date,\n    wr.beneficiary_id,\n    wr.step_id,\n    wr.author_id,\n    wr.worker_id,\n    wr.status_id,\n    wr.amount_paid,\n    wr.amount_left,\n    wr.beneficiary_name,\n    wr.beneficiary_abbreviated,\n    wr.beneficiary_code,\n    wr.treasury_id,\n    wr.gross,\n    wr.deduction,\n    wr.debit_account_pec,\n    wr.credit_account_pec,\n    wr.date_pec,\n    wr.title,\n    wr.section,\n    wr.chapter,\n    wr.sub_chapter,\n    wr.line,\n    wr.bundle,\n    wr.region,\n    wr.imputation,\n    awr.no,\n    awr.fiscal_year,\n    awr.annual_amount_to_pay,\n    awr.annual_amount_paid,\n    awr.annual_amount_left,\n    awr.is_split\n   FROM (gtp_annual_warrant awr\n     LEFT JOIN gtp_warrant_view wr ON ((wr.id = awr.id)))\n  ORDER BY wr.id;"));
     }
 
     /**

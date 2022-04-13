@@ -13,6 +13,7 @@ import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpRegion;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpSection;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpSubChapter;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpTitle;
+import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpTreasury;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpWarrant;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.records.GtpAccountPecRecord;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.records.GtpAnnualWarrantRecord;
@@ -23,6 +24,7 @@ import io.surati.gap.gtp.base.db.jooq.generated.tables.records.GtpRegionRecord;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.records.GtpSectionRecord;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.records.GtpSubChapterRecord;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.records.GtpTitleRecord;
+import io.surati.gap.gtp.base.db.jooq.generated.tables.records.GtpTreasuryRecord;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.records.GtpWarrantRecord;
 
 import org.jooq.ForeignKey;
@@ -52,6 +54,7 @@ public class Keys {
     public static final UniqueKey<GtpSectionRecord> GTP_SECTION_PKEY = Internal.createUniqueKey(GtpSection.GTP_SECTION, DSL.name("gtp_section_pkey"), new TableField[] { GtpSection.GTP_SECTION.CODE }, true);
     public static final UniqueKey<GtpSubChapterRecord> GTP_SUB_CHAPTER_PKEY = Internal.createUniqueKey(GtpSubChapter.GTP_SUB_CHAPTER, DSL.name("gtp_sub_chapter_pkey"), new TableField[] { GtpSubChapter.GTP_SUB_CHAPTER.CODE }, true);
     public static final UniqueKey<GtpTitleRecord> GTP_TITLE_PKEY = Internal.createUniqueKey(GtpTitle.GTP_TITLE, DSL.name("gtp_title_pkey"), new TableField[] { GtpTitle.GTP_TITLE.CODE }, true);
+    public static final UniqueKey<GtpTreasuryRecord> GTP_TREASURY_PKEY = Internal.createUniqueKey(GtpTreasury.GTP_TREASURY, DSL.name("gtp_treasury_pkey"), new TableField[] { GtpTreasury.GTP_TREASURY.ID }, true);
     public static final UniqueKey<GtpWarrantRecord> GTP_WARRANT_PKEY = Internal.createUniqueKey(GtpWarrant.GTP_WARRANT, DSL.name("gtp_warrant_pkey"), new TableField[] { GtpWarrant.GTP_WARRANT.ID }, true);
 
     // -------------------------------------------------------------------------
@@ -68,4 +71,5 @@ public class Keys {
     public static final ForeignKey<GtpWarrantRecord, GtpSubChapterRecord> GTP_WARRANT__GTP_WARRANT_SUB_CHAPTER_FKEY = Internal.createForeignKey(GtpWarrant.GTP_WARRANT, DSL.name("gtp_warrant_sub_chapter_fkey"), new TableField[] { GtpWarrant.GTP_WARRANT.SUB_CHAPTER }, Keys.GTP_SUB_CHAPTER_PKEY, new TableField[] { GtpSubChapter.GTP_SUB_CHAPTER.CODE }, true);
     public static final ForeignKey<GtpWarrantRecord, GtpLineRecord> GTP_WARRANT__GTP_WARRANT_SUB_LINE_FKEY = Internal.createForeignKey(GtpWarrant.GTP_WARRANT, DSL.name("gtp_warrant_sub_line_fkey"), new TableField[] { GtpWarrant.GTP_WARRANT.LINE }, Keys.GTP_LINE_PKEY, new TableField[] { GtpLine.GTP_LINE.CODE }, true);
     public static final ForeignKey<GtpWarrantRecord, GtpTitleRecord> GTP_WARRANT__GTP_WARRANT_TITLE_FKEY = Internal.createForeignKey(GtpWarrant.GTP_WARRANT, DSL.name("gtp_warrant_title_fkey"), new TableField[] { GtpWarrant.GTP_WARRANT.TITLE }, Keys.GTP_TITLE_PKEY, new TableField[] { GtpTitle.GTP_TITLE.CODE }, true);
+    public static final ForeignKey<GtpWarrantRecord, GtpTreasuryRecord> GTP_WARRANT__GTP_WARRANT_TREASURY_ID_FKEY = Internal.createForeignKey(GtpWarrant.GTP_WARRANT, DSL.name("gtp_warrant_treasury_id_fkey"), new TableField[] { GtpWarrant.GTP_WARRANT.TREASURY_ID }, Keys.GTP_TREASURY_PKEY, new TableField[] { GtpTreasury.GTP_TREASURY.ID }, true);
 }

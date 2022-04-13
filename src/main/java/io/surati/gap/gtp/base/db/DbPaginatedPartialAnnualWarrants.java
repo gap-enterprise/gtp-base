@@ -6,6 +6,7 @@ import io.surati.gap.gtp.base.api.AnnualWarrants;
 import io.surati.gap.gtp.base.api.Bundle;
 import io.surati.gap.gtp.base.api.Section;
 import io.surati.gap.gtp.base.api.Title;
+import io.surati.gap.gtp.base.api.Treasury;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpAnnualWarrantView;
 import javax.sql.DataSource;
 import org.apache.commons.lang3.StringUtils;
@@ -16,6 +17,8 @@ import org.jooq.impl.DSL;
 public final class DbPaginatedPartialAnnualWarrants implements AnnualWarrants {
 
     private final DataSource src;
+
+    private final Treasury treasury;
 
     private final Title title;
 
@@ -42,9 +45,9 @@ public final class DbPaginatedPartialAnnualWarrants implements AnnualWarrants {
      * @param year Year
      */
     public DbPaginatedPartialAnnualWarrants(
-        final DataSource src, final short year
+        final DataSource src, final Treasury treasury, final short year
     ) {
-        this(src, Long.MAX_VALUE, 1L, Title.EMPTY, Section.EMPTY, Bundle.EMPTY, year, StringUtils.EMPTY);
+        this(src, treasury, Long.MAX_VALUE, 1L, Title.EMPTY, Section.EMPTY, Bundle.EMPTY, year, StringUtils.EMPTY);
     }
 
     /**
@@ -57,10 +60,11 @@ public final class DbPaginatedPartialAnnualWarrants implements AnnualWarrants {
      * @param filter Filter on reference and imputation
      */
     public DbPaginatedPartialAnnualWarrants(
-        final DataSource src, final Long nbperpage, final Long page, final Title title,
+        final DataSource src, final Treasury treasury, final Long nbperpage, final Long page, final Title title,
         final Section section, final Bundle pbundle, final short year, final String filter
     ) {
         this.src = src;
+        this.treasury = treasury;
         this.ctx = new JooqContext(this.src);
         this.nbperpage = nbperpage;
         this.page = page;
@@ -136,6 +140,8 @@ public final class DbPaginatedPartialAnnualWarrants implements AnnualWarrants {
             GtpAnnualWarrantView.GTP_ANNUAL_WARRANT_VIEW.FISCAL_YEAR.eq(this.year)
         ).and(
             GtpAnnualWarrantView.GTP_ANNUAL_WARRANT_VIEW.IS_SPLIT.eq(true)
+        ).and(
+            GtpAnnualWarrantView.GTP_ANNUAL_WARRANT_VIEW.TREASURY_ID.eq(this.treasury.id())
         );
         if (this.pbundle != Bundle.EMPTY) {
             result = result.and(

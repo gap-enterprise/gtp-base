@@ -6,6 +6,7 @@ import io.surati.gap.database.utils.jooq.JooqContext;
 import io.surati.gap.gtp.base.api.Bundle;
 import io.surati.gap.gtp.base.api.Section;
 import io.surati.gap.gtp.base.api.Title;
+import io.surati.gap.gtp.base.api.Treasury;
 import io.surati.gap.gtp.base.api.Warrant;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpWarrant;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.records.GtpWarrantRecord;
@@ -51,6 +52,11 @@ public final class DbWarrant implements Warrant {
         this.record = new JooqContext(this.src)
             .fetchOne(GtpWarrant.GTP_WARRANT, GtpWarrant.GTP_WARRANT.ID.eq(id));
         this.origin = new DbReferenceDocument(this.src, id);
+    }
+
+    @Override
+    public Treasury treasury() {
+        return new DbTreasury(this.src, this.record.getTreasuryId());
     }
 
     @Override

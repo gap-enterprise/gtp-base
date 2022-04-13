@@ -8,6 +8,7 @@ import io.surati.gap.gtp.base.api.AnnualWarrant;
 import io.surati.gap.gtp.base.api.Bundle;
 import io.surati.gap.gtp.base.api.Section;
 import io.surati.gap.gtp.base.api.Title;
+import io.surati.gap.gtp.base.api.Treasury;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpAnnualWarrant;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpAnnualWarrantView;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.records.GtpAnnualWarrantRecord;
@@ -83,6 +84,11 @@ public final class DbAnnualWarrant implements AnnualWarrant {
                     GtpAnnualWarrantView.GTP_ANNUAL_WARRANT_VIEW.FISCAL_YEAR.eq(this.year())
                 )
         ).getIsSplit();
+    }
+
+    @Override
+    public Treasury treasury() {
+        return new DbTreasury(this.src, this.view.getTreasuryId());
     }
 
     @Override
