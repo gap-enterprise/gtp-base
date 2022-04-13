@@ -217,7 +217,7 @@ SOFTWARE.
 					annual_amount_paid=cur_annual_amount_paid,
 					annual_amount_left=cur_annual_amount_left,
 					is_split=cur_is_split
-				WHERE id = cur_warrant_id;
+				WHERE id = cur_warrant_id AND fiscal_year = cur_year;
 			ELSE
 				INSERT INTO gtp_annual_warrant(
 					id, fiscal_year, annual_amount_to_pay,
