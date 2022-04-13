@@ -20,8 +20,8 @@ SOFTWARE.
     <sql>
       CREATE TABLE gtp_treasury (
         id BIGINT PRIMARY KEY,
-        representative character varying(25),
-        representative_position character varying(25),
+        representative character varying(100),
+        representative_position character varying(100),
         CONSTRAINT gtp_treasury_id_fkey FOREIGN KEY (id) REFERENCES pay_third_party (id)
         ON UPDATE CASCADE ON DELETE CASCADE
       );
@@ -217,7 +217,7 @@ SOFTWARE.
 					annual_amount_paid=cur_annual_amount_paid,
 					annual_amount_left=cur_annual_amount_left,
 					is_split=cur_is_split
-				WHERE id = cur_warrant_id;
+				WHERE id = cur_warrant_id AND fiscal_year = cur_year;
 			ELSE
 				INSERT INTO gtp_annual_warrant(
 					id, fiscal_year, annual_amount_to_pay,
