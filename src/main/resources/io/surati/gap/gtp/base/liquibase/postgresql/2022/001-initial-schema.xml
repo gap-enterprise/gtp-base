@@ -20,8 +20,8 @@ SOFTWARE.
     <sql>
       CREATE TABLE gtp_treasury (
         id BIGINT PRIMARY KEY,
-        representative character varying(25),
-        representative_position character varying(25),
+        representative character varying(100),
+        representative_position character varying(100),
         CONSTRAINT gtp_treasury_id_fkey FOREIGN KEY (id) REFERENCES pay_third_party (id)
         ON UPDATE CASCADE ON DELETE CASCADE
       );
