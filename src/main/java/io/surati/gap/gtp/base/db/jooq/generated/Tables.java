@@ -14,6 +14,8 @@ import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpRegion;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpSection;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpSubChapter;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpTitle;
+import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpTreasury;
+import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpTreasuryView;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpWarrant;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpWarrantView;
 
@@ -73,6 +75,16 @@ public class Tables {
      * The table <code>public.gtp_title</code>.
      */
     public static final GtpTitle GTP_TITLE = GtpTitle.GTP_TITLE;
+
+    /**
+     * The table <code>public.gtp_treasury</code>.
+     */
+    public static final GtpTreasury GTP_TREASURY = GtpTreasury.GTP_TREASURY;
+
+    /**
+     * The table <code>public.gtp_treasury_view</code>.
+     */
+    public static final GtpTreasuryView GTP_TREASURY_VIEW = GtpTreasuryView.GTP_TREASURY_VIEW;
 
     /**
      * The table <code>public.gtp_warrant</code>.

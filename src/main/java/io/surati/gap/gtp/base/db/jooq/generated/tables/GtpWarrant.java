@@ -16,7 +16,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row14;
+import org.jooq.Row15;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -52,6 +52,11 @@ public class GtpWarrant extends TableImpl<GtpWarrantRecord> {
      * The column <code>public.gtp_warrant.id</code>.
      */
     public final TableField<GtpWarrantRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false), this, "");
+
+    /**
+     * The column <code>public.gtp_warrant.treasury_id</code>.
+     */
+    public final TableField<GtpWarrantRecord, Long> TREASURY_ID = createField(DSL.name("treasury_id"), SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>public.gtp_warrant.gross</code>.
@@ -168,9 +173,10 @@ public class GtpWarrant extends TableImpl<GtpWarrantRecord> {
 
     @Override
     public List<ForeignKey<GtpWarrantRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<GtpWarrantRecord, ?>>asList(Keys.GTP_WARRANT__GTP_WARRANT_DEBIT_ACCOUNT_PEC_FKEY, Keys.GTP_WARRANT__GTP_WARRANT_CREDIT_ACCOUNT_PEC_FKEY, Keys.GTP_WARRANT__GTP_WARRANT_TITLE_FKEY, Keys.GTP_WARRANT__GTP_WARRANT_SECTION_FKEY, Keys.GTP_WARRANT__GTP_WARRANT_CHAPTER_FKEY, Keys.GTP_WARRANT__GTP_WARRANT_SUB_CHAPTER_FKEY, Keys.GTP_WARRANT__GTP_WARRANT_SUB_LINE_FKEY, Keys.GTP_WARRANT__GTP_WARRANT_BUNDLE_FKEY, Keys.GTP_WARRANT__GTP_WARRANT_REGION_FKEY);
+        return Arrays.<ForeignKey<GtpWarrantRecord, ?>>asList(Keys.GTP_WARRANT__GTP_WARRANT_TREASURY_ID_FKEY, Keys.GTP_WARRANT__GTP_WARRANT_DEBIT_ACCOUNT_PEC_FKEY, Keys.GTP_WARRANT__GTP_WARRANT_CREDIT_ACCOUNT_PEC_FKEY, Keys.GTP_WARRANT__GTP_WARRANT_TITLE_FKEY, Keys.GTP_WARRANT__GTP_WARRANT_SECTION_FKEY, Keys.GTP_WARRANT__GTP_WARRANT_CHAPTER_FKEY, Keys.GTP_WARRANT__GTP_WARRANT_SUB_CHAPTER_FKEY, Keys.GTP_WARRANT__GTP_WARRANT_SUB_LINE_FKEY, Keys.GTP_WARRANT__GTP_WARRANT_BUNDLE_FKEY, Keys.GTP_WARRANT__GTP_WARRANT_REGION_FKEY);
     }
 
+    private transient GtpTreasury _gtpTreasury;
     private transient GtpAccountPec _gtpWarrantDebitAccountPecFkey;
     private transient GtpAccountPec _gtpWarrantCreditAccountPecFkey;
     private transient GtpTitle _gtpTitle;
@@ -180,6 +186,13 @@ public class GtpWarrant extends TableImpl<GtpWarrantRecord> {
     private transient GtpLine _gtpLine;
     private transient GtpBundle _gtpBundle;
     private transient GtpRegion _gtpRegion;
+
+    public GtpTreasury gtpTreasury() {
+        if (_gtpTreasury == null)
+            _gtpTreasury = new GtpTreasury(this, Keys.GTP_WARRANT__GTP_WARRANT_TREASURY_ID_FKEY);
+
+        return _gtpTreasury;
+    }
 
     public GtpAccountPec gtpWarrantDebitAccountPecFkey() {
         if (_gtpWarrantDebitAccountPecFkey == null)
@@ -271,11 +284,11 @@ public class GtpWarrant extends TableImpl<GtpWarrantRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row14 type methods
+    // Row15 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row14<Long, Double, Double, String, String, LocalDate, String, String, String, String, String, String, String, String> fieldsRow() {
-        return (Row14) super.fieldsRow();
+    public Row15<Long, Long, Double, Double, String, String, LocalDate, String, String, String, String, String, String, String, String> fieldsRow() {
+        return (Row15) super.fieldsRow();
     }
 }
