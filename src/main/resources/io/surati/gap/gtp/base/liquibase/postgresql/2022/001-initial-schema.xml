@@ -175,6 +175,7 @@ SOFTWARE.
 			cur_no integer;
 			cur_is_split boolean;
 			cur_warrant_id bigint;
+			cur_treasury_id bigint;
 			cur_total_amount double precision;
 			cur_amount_paid_before double precision;
 		    cur_annual_amount_to_pay double precision;
@@ -186,6 +187,7 @@ SOFTWARE.
 		    END IF;
 			cur_year := DATE_PART($$year$$, NEW.date);
 			cur_warrant_id := NEW.reference_document_id;
+			SELECT treasury_id INTO cur_treasury_id FROM gtp_warrant WHERE id=cur_warrant_id;
 		     SELECT SUM(amount) INTO cur_amount_paid_before
 				FROM pay_payment_order
 				WHERE reference_document_id=cur_warrant_id
@@ -205,8 +207,8 @@ SOFTWARE.
 			cur_annual_amount_left := cur_annual_amount_to_pay - cur_annual_amount_paid;
 			cur_is_split := NOT(cur_total_amount=cur_annual_amount_to_pay AND cur_annual_amount_left=0);
 			cur_no := CASE
-				WHEN (select count(*) from gtp_annual_warrant where fiscal_year=cur_year and is_split=cur_is_split) = 0 THEN 1
-				ELSE (select no from gtp_annual_warrant where fiscal_year=cur_year and is_split=cur_is_split order by no desc limit 1) + 1
+				WHEN (select count(*) from gtp_annual_warrant_view where treasury_id=cur_treasury_id and fiscal_year=cur_year and is_split=cur_is_split) = 0 THEN 1
+				ELSE (select no from gtp_annual_warrant_view where treasury_id=cur_treasury_id and fiscal_year=cur_year and is_split=cur_is_split order by no desc limit 1) + 1
 			END;
 			IF EXISTS (
 				SELECT * FROM gtp_annual_warrant
