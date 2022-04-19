@@ -36,7 +36,7 @@ public interface Treasuries {
      * Add a treasury.
      * @param code Code
      * @param name Name
-     * @param notes Abbreviated
+     * @param abbreviated Abbreviated
      */
     void add(String code, String name, String abbreviated);
 }
