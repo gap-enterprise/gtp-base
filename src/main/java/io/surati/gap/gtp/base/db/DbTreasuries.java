@@ -68,10 +68,11 @@ public final class DbTreasuries implements Treasuries {
     }
 
 	@Override
-	public void add(String code, String name, String abbreviated) {		
+	public Treasury add(String code, String name, String abbreviated) {		
 		ThirdParty thirdParty = new DbThirdParties(this.src).add(code, name, abbreviated);		
 		this.ctx.insertInto(GtpTreasury.GTP_TREASURY)
 			.set(GtpTreasury.GTP_TREASURY.ID, thirdParty.id())
-			.execute();		
+			.execute();
+		return new DbTreasury(src, thirdParty.id());	
 	}
 }
