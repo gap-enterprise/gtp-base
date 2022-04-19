@@ -5,7 +5,12 @@ import io.surati.gap.gtp.base.api.Treasuries;
 import io.surati.gap.gtp.base.api.Treasury;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpTreasury;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpTreasuryView;
+import io.surati.gap.payment.base.api.ThirdParty;
+import io.surati.gap.payment.base.db.DbThirdParties;
+
 import javax.sql.DataSource;
+
+import org.apache.commons.lang.StringUtils;
 import org.jooq.DSLContext;
 
 /**
@@ -63,4 +68,19 @@ public final class DbTreasuries implements Treasuries {
         this.ctx.deleteFrom(GtpTreasury.GTP_TREASURY)
             .where(GtpTreasury.GTP_TREASURY.ID.eq(id));
     }
+
+	@Override
+	public void add(String code, String name, String abbreviated) {
+		if(StringUtils.isBlank(code)) 
+			throw new IllegalArgumentException("Le code ne peut être vide !");
+		if(StringUtils.isBlank(name))
+			throw new IllegalArgumentException("Le nom ne peut être vide !");
+		if(StringUtils.isBlank(abbreviated))
+			throw new IllegalArgumentException("L'abrégé ne peut être vide !");
+		
+		ThirdParty thirdParty = new DbThirdParties(this.src).add(code, name, abbreviated);		
+		this.ctx.insertInto(GtpTreasury.GTP_TREASURY)
+			.set(GtpTreasury.GTP_TREASURY.ID, thirdParty.id())
+			.execute();		
+	}
 }

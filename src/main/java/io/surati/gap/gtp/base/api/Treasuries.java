@@ -31,4 +31,12 @@ public interface Treasuries {
      * @param id Identifier
      */
     void remove(Long id);
+
+    /**
+     * Add a treasury.
+     * @param code Code
+     * @param name Name
+     * @param notes Abbreviated
+     */
+    void add(String code, String name, String abbreviated);
 }
