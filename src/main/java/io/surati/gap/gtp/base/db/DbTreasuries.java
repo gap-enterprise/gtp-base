@@ -5,6 +5,9 @@ import io.surati.gap.gtp.base.api.Treasuries;
 import io.surati.gap.gtp.base.api.Treasury;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpTreasury;
 import io.surati.gap.gtp.base.db.jooq.generated.tables.GtpTreasuryView;
+import io.surati.gap.payment.base.api.ThirdParty;
+import io.surati.gap.payment.base.db.DbThirdParties;
+
 import javax.sql.DataSource;
 import org.jooq.DSLContext;
 
@@ -63,4 +66,12 @@ public final class DbTreasuries implements Treasuries {
         this.ctx.deleteFrom(GtpTreasury.GTP_TREASURY)
             .where(GtpTreasury.GTP_TREASURY.ID.eq(id));
     }
+
+	@Override
+	public void add(String code, String name, String abbreviated) {		
+		ThirdParty thirdParty = new DbThirdParties(this.src).add(code, name, abbreviated);		
+		this.ctx.insertInto(GtpTreasury.GTP_TREASURY)
+			.set(GtpTreasury.GTP_TREASURY.ID, thirdParty.id())
+			.execute();		
+	}
 }
